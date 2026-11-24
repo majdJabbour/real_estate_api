@@ -288,8 +288,11 @@ it.each([
 
 it.each([
   ["GET", "/favorites"],
+  ["GET", "/favorites/ids"],
   ["PUT", "/favorites/rental-001"],
   ["DELETE", "/favorites/rental-001"],
+  ["PUT", "/favorites/ids"],
+  ["DELETE", "/favorites/ids"],
 ] as const)("protects %s %s without Firestore credentials", async (method, path) => {
   const response = await request(path, undefined, method);
   expect(response.status).toBe(401);

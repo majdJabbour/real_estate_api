@@ -46,6 +46,10 @@ export class FavoritesService {
     return { propertyId, isFavorite: true };
   }
 
+  async listIds(uid: string): Promise<string[]> {
+    return [...new Set(await this.favorites.listIds(uid))].sort();
+  }
+
   async remove(uid: string, input: string) {
     const propertyId = validatePropertyId(input);
     await this.favorites.remove(uid, propertyId);

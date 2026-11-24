@@ -25,6 +25,7 @@ Create a separate normalized fixture with synthetic monthly USD rents (not a cur
 | GET | `/properties/filter-options` | Public | 200 |
 | GET | `/auth/me` | Required | 200 |
 | GET | `/favorites` | Required | 200 |
+| GET | `/favorites/ids` | Required | 200 |
 | PUT | `/favorites/:propertyId` | Required | 200 |
 | DELETE | `/favorites/:propertyId` | Required | 200 |
 
@@ -154,10 +155,21 @@ Verify Firebase ID token on the Node.js runtime using Firebase Admin. Extract UI
 Firestore path: `users/{uid}/favorites/{propertyId}`. Store stable property ID and creation timestamp. Derive ownership solely from verified UID. Never persist favorites in the bundled JSON or process memory.
 
 - `GET /favorites?page=1&limit=20`: return `Page<PropertySummary>` ordered by favorite creation descending with ID ascending as tie-breaker. Same pagination defaults, limits and validation as listing. Exclude orphaned references from results and totals; document the mock repository strategy. No other query parameters.
+- `GET /favorites/ids`: return `Success<string[]>` with unique favorite property IDs for the verified UID, ordered by ascending property ID. This endpoint accepts no query parameters and returns `200` for both populated and empty lists. Stored orphaned references may be included. Use the IDs to determine membership for existing displayed properties. The response carries IDs only and uses `Cache-Control: private, no-store`.
 - `PUT /favorites/:propertyId`: require an existing property; add if absent without resetting its creation timestamp. Return `{"success":true,"data":{"propertyId":"1","isFavorite":true}}`. Repeated requests are safe, including concurrent requests (use atomic create or transaction).
 - `DELETE /favorites/:propertyId`: remove the authenticated user's reference if present, otherwise no-op; return `{"success":true,"data":{"propertyId":"1","isFavorite":false}}`. Allow cleanup of orphaned references.
 
-Use 404 for PUT on a nonexistent property. Flutter can load favorite pages separately and maintain a local set of known favorite IDs; do not infer an ID is not a favorite merely because it was absent from a partially loaded page. If full card-level favorite status is needed at scale, extend the contract with a bounded batch membership endpoint before implementation of that UI.
+Use 404 for PUT on a nonexistent property. Flutter uses the ID endpoint for card and detail membership. Absence from a partial favorites page does not establish membership.
+
+Example ID responses
+
+```json
+{"success":true,"data":["rental-001","rental-005"]}
+```
+
+```json
+{"success":true,"data":[]}
+```
 
 ## 9. Health — GET /health
 

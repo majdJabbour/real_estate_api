@@ -29,13 +29,13 @@ function fakeFirestore() {
     records.set(uid, favorites);
   });
   const remove = vi.fn(async (uid: string, id: string) => { records.get(uid)?.delete(id); });
-  const project = vi.fn((uid: string, field: string): {
+  const project = vi.fn((uid: string, fields: readonly string[]): {
     get: () => Promise<{ docs: { id: string; get: () => unknown }[] }>;
   } => ({
     get: async () => ({
       docs: Array.from(records.get(uid) ?? [], ([id, time]) => ({
         id, get: () => {
-          expect(field).toBe("createdAt");
+          expect(fields).toEqual(["createdAt"]);
           return time;
         },
       })),
@@ -46,7 +46,7 @@ function fakeFirestore() {
       collection: (name: string) => {
         expect([root, name]).toEqual(["users", "favorites"]);
         return {
-          select: (field: string) => project(uid, field),
+          select: (...fields: string[]) => project(uid, fields),
           doc: (id: string) => ({
             create: (fields: unknown) => create(uid, id, fields),
             delete: () => remove(uid, id),
@@ -71,7 +71,18 @@ it("initializes the default database only on use and shares the existing Admin a
   expect(getFirestore).not.toHaveBeenCalled();
   await expect(repository.list("owner")).resolves.toEqual([]);
   expect(getFirestore).toHaveBeenCalledExactlyOnceWith(app);
-  expect(fake.project).toHaveBeenCalledExactlyOnceWith("owner", "createdAt");
+  expect(fake.project).toHaveBeenCalledExactlyOnceWith("owner", ["createdAt"]);
+});
+
+it("reads only document references once per user for favorite IDs", async () => {
+  const fake = fakeFirestore();
+  fake.records.set("owner", new Map([["removed-listing", new Timestamp(100, 0)]]));
+  fake.records.set("other", new Map([["rental-005", new Timestamp(101, 0)]]));
+  const repository = new FirestoreFavoritesRepository(() => fake.database);
+
+  await expect(repository.listIds("owner")).resolves.toEqual(["removed-listing"]);
+  await expect(repository.listIds("other")).resolves.toEqual(["rental-005"]);
+  expect(fake.project.mock.calls).toEqual([["owner", []], ["other", []]]);
 });
 
 it("creates one record for concurrent and repeated PUTs and preserves its original timestamp", async () => {

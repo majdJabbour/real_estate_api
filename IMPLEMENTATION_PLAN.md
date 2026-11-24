@@ -20,6 +20,7 @@ The primary deliverable is the Flutter recruitment assessment (suggested total 1
 | 5 | Public API integration verification | 4 | Required |
 | 6 | Firebase authentication | 5; confirmed scope | Conditional |
 | 7 | Firestore favorites | 6; confirmed scope | Conditional |
+| 7.1 | Favorite IDs and client integration support | 7; approved extension | Required for favorite toggles |
 | 8 | Documentation and release | 5, plus approved extensions | Required |
 | 9 | Flutter handoff | 8 | Required |
 
@@ -93,6 +94,14 @@ Acceptance: mocked tests for missing/malformed/invalid/expired tokens, successfu
 - Test ownership, isolation, repeat/concurrent add semantics, delete, orphan references and invalid property ID using deterministic mocks; use emulator or configured test project for actual Firestore behavior verification if available.
 
 Acceptance: no cross-user access; repeated mutations safe; authenticated responses never publicly cached. Document unverified real-cloud behavior. If omitted, document that favorites are out of approved scope rather than claiming implementation.
+
+## Phase 7.1 — Favorite IDs and client integration support
+
+- Implement the approved `GET /api/v1/favorites/ids` extension from contract section 8. Scope one ID-only Firestore query to the verified UID, return unique IDs in ascending order, and preserve private no-store caching. Orphaned IDs may be returned.
+- Preserve the paginated favorites and mutation contracts, including PUT and DELETE for the property ID `ids`. Keep public property models independent of authenticated favorite state.
+- Document Riverpod state, optimistic mutations, rollback, session isolation, and refresh behavior. A bounded batch membership API remains a future option for very large collections.
+
+Acceptance: deterministic mocked verification of empty and populated responses, sorting, uniqueness, owner isolation, errors and route compatibility. The credential-free production HTTP suite verifies a 401 for the new endpoint and keeps public-route regression coverage.
 
 ## Phase 8 — Documentation and release
 

@@ -2,14 +2,16 @@ import { beforeEach, expect, it, vi } from "vitest";
 
 import { GET } from "@/app/api/v1/favorites/route";
 import { DELETE, PUT } from "@/app/api/v1/favorites/[propertyId]/route";
+import { DELETE as removeIds, GET as getIds, PUT as addIds } from "@/app/api/v1/favorites/ids/route";
 import { ApiError } from "@/core/errors/api-error";
 import type { TokenVerifier } from "@/features/authentication/domain/token-verifier";
 import type { FavoritesRepository } from "@/features/favorites/domain/favorites.repository";
 import { propertyRepository } from "@/features/properties/property-composition";
 
-const { verify, list, add, remove } = vi.hoisted(() => ({
+const { verify, list, listIds, add, remove } = vi.hoisted(() => ({
   verify: vi.fn<TokenVerifier["verify"]>(),
   list: vi.fn<FavoritesRepository["list"]>(),
+  listIds: vi.fn<FavoritesRepository["listIds"]>(),
   add: vi.fn<FavoritesRepository["add"]>(),
   remove: vi.fn<FavoritesRepository["remove"]>(),
 }));
@@ -21,7 +23,7 @@ vi.mock("@/features/authentication/authentication-composition", async () => {
 vi.mock("@/features/favorites/favorites-composition", async () => {
   const { FavoritesService } = await import("@/features/favorites/application/favorites.service");
   const { propertyRepository } = await import("@/features/properties/property-composition");
-  return { favoritesService: new FavoritesService({ list, add, remove }, propertyRepository) };
+  return { favoritesService: new FavoritesService({ list, listIds, add, remove }, propertyRepository) };
 });
 
 const route = "http://localhost/api/v1/favorites";
@@ -31,6 +33,7 @@ beforeEach(() => {
   vi.resetAllMocks();
   verify.mockResolvedValue(identity);
   list.mockResolvedValue([]);
+  listIds.mockResolvedValue([]);
 });
 
 function listing(query = "", locale = "en", authorization = "Bearer fake.token.value") {
@@ -49,6 +52,104 @@ function expectPrivate(response: Response, status: number) {
   expect(response.headers.get("Cache-Control")).toBe("private, no-store");
   expect(response.headers.get("Content-Type")).toMatch(/^application\/json\b/);
 }
+
+function idsRequest(query = "", authorization = "Bearer fake.token.value", method = "GET") {
+  return new Request(route + "/ids" + query, {
+    method,
+    headers: { Authorization: authorization, "Accept-Language": "ar" },
+  });
+}
+
+it("returns an empty non-localized private favorite ID array", async () => {
+  const response = await getIds(idsRequest());
+  expectPrivate(response, 200);
+  expect(response.headers.get("Content-Language")).toBeNull();
+  expect(response.headers.get("Vary")).toBeNull();
+  expect(await response.json()).toEqual({ success: true, data: [] });
+  expect(verify).toHaveBeenCalledExactlyOnceWith("fake.token.value");
+  expect(listIds).toHaveBeenCalledExactlyOnceWith(identity.id);
+});
+
+it("scopes, sorts and deduplicates IDs without resolving summaries or details", async () => {
+  const findById = vi.spyOn(propertyRepository, "findById");
+  const summaries = vi.spyOn(propertyRepository, "findSummariesByIds");
+  const otherUser = { ...identity, id: "other-user" };
+  verify.mockImplementation(async (token) => token === "other.token.value" ? otherUser : identity);
+  listIds.mockImplementation(async (uid) => uid === identity.id
+    ? ["rental-005", "removed-listing", "rental-001", "rental-005"]
+    : ["rental-003"]);
+
+  try {
+    const [first, second] = await Promise.all([
+      getIds(idsRequest()),
+      getIds(idsRequest("", "Bearer other.token.value")),
+    ]);
+    expectPrivate(first, 200);
+    expectPrivate(second, 200);
+    expect(await first.json()).toEqual({ success: true, data: ["removed-listing", "rental-001", "rental-005"] });
+    expect(await second.json()).toEqual({ success: true, data: ["rental-003"] });
+    expect(listIds.mock.calls).toEqual([[identity.id], [otherUser.id]]);
+    expect(verify).toHaveBeenCalledTimes(2);
+    expect(list).not.toHaveBeenCalled();
+    expect(findById).not.toHaveBeenCalled();
+    expect(summaries).not.toHaveBeenCalled();
+  } finally {
+    findById.mockRestore();
+    summaries.mockRestore();
+  }
+});
+
+it("rejects unauthenticated, invalid-token and query override requests before reading IDs", async () => {
+  const missing = await getIds(new Request(route + "/ids"));
+  expectPrivate(missing, 401);
+  expect((await missing.json()).error.code).toBe("UNAUTHORIZED");
+  verify.mockRejectedValueOnce(new ApiError("UNAUTHORIZED", "Invalid or missing Firebase ID token"));
+  const invalid = await getIds(idsRequest());
+  expectPrivate(invalid, 401);
+  expect(invalid.headers.get("WWW-Authenticate")).toBe("Bearer");
+  expect((await invalid.json()).error.code).toBe("UNAUTHORIZED");
+  const query = await getIds(idsRequest("?uid=other-user"));
+  expectPrivate(query, 400);
+  expect(await query.json()).toEqual({
+    success: false,
+    error: { code: "VALIDATION_ERROR", message: "Invalid query parameters", details: [
+      { field: "query", message: "Unknown query parameter" },
+    ] },
+  });
+  expect(listIds).not.toHaveBeenCalled();
+});
+
+it("preserves sanitized unavailable and unexpected error responses for IDs", async () => {
+  listIds.mockRejectedValueOnce(new ApiError("SERVICE_UNAVAILABLE", "Favorites service unavailable"));
+  const unavailable = await getIds(idsRequest());
+  expectPrivate(unavailable, 503);
+  expect(await unavailable.json()).toEqual({
+    success: false, error: { code: "SERVICE_UNAVAILABLE", message: "Favorites service unavailable" },
+  });
+  const log = vi.spyOn(console, "error").mockImplementation(() => {});
+  try {
+    listIds.mockRejectedValueOnce(new Error("private document path"));
+    const unexpected = await getIds(idsRequest());
+    expectPrivate(unexpected, 500);
+    expect(await unexpected.json()).toEqual({
+      success: false, error: { code: "INTERNAL_SERVER_ERROR", message: "Internal server error" },
+    });
+    expect(log).toHaveBeenCalledExactlyOnceWith("Unexpected API request failure");
+  } finally {
+    log.mockRestore();
+  }
+});
+
+it("retains PUT and DELETE semantics when the property ID is ids", async () => {
+  const put = await addIds(idsRequest("", undefined, "PUT"));
+  expectPrivate(put, 404);
+  expect((await put.json()).error.code).toBe("PROPERTY_NOT_FOUND");
+  const deleted = await removeIds(idsRequest("", undefined, "DELETE"));
+  expectPrivate(deleted, 200);
+  expect(await deleted.json()).toEqual({ success: true, data: { propertyId: "ids", isFavorite: false } });
+  expect(remove).toHaveBeenCalledExactlyOnceWith(identity.id, "ids");
+  expect(listIds).not.toHaveBeenCalled();
+});
 
 it("returns an empty private list with default pagination", async () => {
   const response = await listing();

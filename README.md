@@ -66,14 +66,24 @@ Each favorite is stored at `users/{uid}/favorites/{propertyId}` with `propertyId
 | Request | Response |
 | --- | --- |
 | `GET /api/v1/favorites?page=1&limit=20` | Paginated property summaries, newest favorite first, with ascending property IDs for timestamp ties. |
+| `GET /api/v1/favorites/ids` | Unique favorite IDs in ascending order. An empty collection returns `{"success":true,"data":[]}` with HTTP 200. |
 | `PUT /api/v1/favorites/rental-001` | `{"success":true,"data":{"propertyId":"rental-001","isFavorite":true}}` |
 | `DELETE /api/v1/favorites/rental-001` | `{"success":true,"data":{"propertyId":"rental-001","isFavorite":false}}` |
 
-Send `Authorization: Bearer <firebase-id-token>` with each request. Send `Accept-Language: ar` on GET for Arabic summaries. An unknown property returns 404 on PUT. PUT uses an atomic create, so concurrent or repeated requests preserve the original timestamp. DELETE succeeds when the reference is already absent and can remove references to properties that no longer exist. [Firestore document operations](https://googleapis.dev/nodejs/firestore/latest/DocumentReference.html)
+Send `Authorization: Bearer <firebase-id-token>` with each request. Send `Accept-Language: ar` on the paginated GET for Arabic summaries. The ID endpoint accepts no query parameters. An unknown property returns 404 on PUT. PUT uses an atomic create, so concurrent or repeated requests preserve the original timestamp. DELETE succeeds when the reference is already absent and can remove references to properties that no longer exist. [Firestore document operations](https://googleapis.dev/nodejs/firestore/latest/DocumentReference.html)
 
 The repository's [firestore.rules](firestore.rules) defines a deny-all policy for direct client access. Flutter accesses favorites through the REST API. Firebase Admin calls use IAM and bypass Firestore Security Rules. The rules file is a local artifact, with cloud deployment handled separately. [Firestore Security Rules](https://firebase.google.com/docs/firestore/security/get-started)
 
 For this demo, each listing request reads the user's favorite timestamp projection and resolves the property summaries in one batch. Orphans are excluded before calculating the page and total. Read cost grows with the user's saved references, and absence from one page does not establish whether a listing is favorited. Firestore behavior is covered by mocks, and authenticated cloud persistence remains pending live verification.
+
+### Favorite toggles in Flutter
+
+1. After authentication, fetch `GET /api/v1/favorites/ids` and store the result in a shared Riverpod `Set<String>` scoped to the current session. Property cards and details derive `isFavorite` from membership in that set, so both screens reflect the same changes. Stored orphaned IDs can appear. Check membership only for existing properties being displayed.
+2. On a toggle, update the set optimistically and send PUT or DELETE. Allow one mutation at a time per property. On failure, restore that property's previous membership and surface the error so the user can retry.
+3. Clear the set and pending mutation state on logout or account changes. Use a session generation or equivalent guard to discard late fetch and mutation results from earlier sessions.
+4. Refresh the ID set on sign-in, explicit retry, or when returning to the app after a period away. Prevent older refreshes from overwriting pending or newer mutations. Track loading and failure separately from an empty success. A failed fetch leaves membership unknown until a successful fetch, or retains the last known set for the same session.
+
+Fetching all IDs fits the assessment's small collections. The API uses one Firestore query with an empty field projection, so it receives document references without timestamps or other favorite fields. Document reads still scale with the collection. A future bounded batch-membership endpoint may suit very large collections. [Firestore pricing](https://cloud.google.com/firestore/pricing)
 
 ## Validation
 

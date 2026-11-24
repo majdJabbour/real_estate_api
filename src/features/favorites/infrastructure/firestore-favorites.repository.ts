@@ -53,6 +53,13 @@ export class FirestoreFavoritesRepository implements FavoritesRepository {
     });
   }
 
+  async listIds(uid: string): Promise<readonly string[]> {
+    return this.run(async () => {
+      const { docs } = await this.collection(uid).select().get();
+      return docs.map(({ id }) => id);
+    });
+  }
+
   async remove(uid: string, propertyId: FavoritePropertyId): Promise<void> {
     await this.run(() => this.collection(uid).doc(propertyId).delete());
   }

@@ -178,3 +178,22 @@ All spawned servers were stopped. Successful live sign-in and verification with 
 | `git diff --check` | Exit 0. |
 
 Listing read cost grows with a user's stored references. Mock tests cover ordering, isolation, orphan removal, configuration and storage failures, timestamp preservation, and repeated and concurrent mutations. They do not establish cloud persistence. The API contract, generated Next.js agent rules, dependency versions, normalized dataset, and ignored local credentials were preserved. The Aikido MCP scan was unavailable.
+
+## Phase 7.1 — Favorite IDs and client integration support
+
+**Prompt summary.** After the developer approved Phase 7 and the contract extension, implement `GET /api/v1/favorites/ids` for shared favorite toggles and document how the Flutter client should manage membership.
+
+**Tools and work.** Codex reviewed the project guides, installed Next.js Route Handler and Firestore SDK documentation, and official Firestore pricing guidance. It used Git, pnpm, Vitest, and the production loopback harness to implement and verify the endpoint.
+
+**Decisions.** The ID route authenticates once and uses the verified UID. The adapter runs one Firestore query with an empty projection, and the service deduplicates and sorts document IDs. The query retains stored orphaned references and performs no property lookup or localization. The service preserves existing response and error conventions. Because the static route takes precedence over the dynamic segment, the static route also delegates PUT and DELETE for the literal property ID `ids` to the same mutation helper. The README covers session-scoped Riverpod state, optimistic changes, rollback, refreshes, and stale response handling.
+
+| Command | Result |
+| --- | --- |
+| `pnpm lint`, `pnpm typecheck` | Exit 0 on Node.js 24.22.3. |
+| `pnpm test` | Exit 0. 254 regular tests across 13 files, including six added cases. |
+| `pnpm test:coverage` | Exit 0. V8 reported 99.17% statements, 97.60% branches, 100% functions, and 99.40% lines for the regular instrumented suite. |
+| `pnpm build` | Exit 0 with Firebase settings blank. Both the literal and dynamic favorites routes were listed. |
+| `pnpm test:integration --reporter=verbose` | Exit 0. All 33 production HTTP tests passed. GET, PUT, and DELETE on `/api/v1/favorites/ids` returned 401 with a Bearer challenge and private no-store caching without credentials. Existing favorites and public-route regressions passed. |
+| `git diff --check` | Exit 0. |
+
+The projection limits returned fields. Firestore document reads still grow with the user's saved references. Authenticated success was covered by mocks. Live Google Sign-In, real ID-token verification, and authenticated Firestore persistence remain pending. The public property models, fixture, generated agent rules, dependency versions, and local credentials were preserved. The Aikido MCP scan was unavailable.
