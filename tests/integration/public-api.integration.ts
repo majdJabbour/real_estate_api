@@ -286,6 +286,21 @@ it.each([
   expect(text).not.toMatch(/internal-secret-marker|\/Users\/|\/home\/|node_modules|process\.env|stack trace/i);
 });
 
+it.each([
+  ["GET", "/favorites"],
+  ["PUT", "/favorites/rental-001"],
+  ["DELETE", "/favorites/rental-001"],
+] as const)("protects %s %s without Firestore credentials", async (method, path) => {
+  const response = await request(path, undefined, method);
+  expect(response.status).toBe(401);
+  expect(response.headers.get("WWW-Authenticate")).toBe("Bearer");
+  expect(response.headers.get("Cache-Control")).toBe("private, no-store");
+  expect(await response.json()).toEqual({
+    success: false,
+    error: { code: "UNAUTHORIZED", message: "Invalid or missing Firebase ID token" },
+  });
+});
+
 it("distinguishes a framework-generated 405 from application JSON errors", async () => {
   const response = await request("/health", undefined, "POST");
   expect(response.status).toBe(405);

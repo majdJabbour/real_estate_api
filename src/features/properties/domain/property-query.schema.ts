@@ -1,8 +1,8 @@
 import { z } from "zod";
 
+import { paginationFields, queryFromSearchParams, unsignedInteger } from "@/core/pagination";
 import { propertyTypeSchema } from "@/features/properties/domain/property.schema";
 
-const unsignedInteger = z.string().regex(/^\d+$/, "Expected an unsigned integer").transform(Number);
 const unsignedDecimal = z.string()
   .regex(/^\d+(?:\.\d+)?$/, "Expected an unsigned decimal")
   .transform(Number)
@@ -28,8 +28,7 @@ const propertyQueryFields = z.strictObject({
   featured: z.enum(["true", "false"]).transform((value) => value === "true").optional(),
   sortBy: z.enum(["createdAt", "price", "rating", "area"]).default("createdAt"),
   sortOrder: z.enum(["asc", "desc"]).default("desc"),
-  page: unsignedInteger.pipe(z.int().min(1).max(1_000_000)).default(1),
-  limit: unsignedInteger.pipe(z.int().min(1).max(100)).default(20),
+  ...paginationFields,
 }).superRefine(({ minPrice, maxPrice, minArea, maxArea }, context) => {
   if (minPrice !== undefined && maxPrice !== undefined && minPrice > maxPrice) {
     context.addIssue({
@@ -47,29 +46,6 @@ const propertyQueryFields = z.strictObject({
   }
 });
 
-export const propertyQuerySchema = z.instanceof(URLSearchParams)
-  .transform((params, context) => {
-    const fields = new Map<string, string>();
-    for (const [key, value] of params) {
-      if (!Object.hasOwn(propertyQueryFields.shape, key)) {
-        context.addIssue({
-          code: "custom",
-          path: ["query"],
-          message: "Unknown query parameter",
-        });
-        continue;
-      }
-      if (fields.has(key)) {
-        context.addIssue({
-          code: "custom",
-          path: [key],
-          message: "Query parameter must occur only once",
-        });
-      }
-      fields.set(key, value);
-    }
-    return Object.fromEntries(fields);
-  })
-  .pipe(propertyQueryFields);
+export const propertyQuerySchema = queryFromSearchParams(propertyQueryFields);
 
 export type PropertyQuery = z.infer<typeof propertyQuerySchema>;

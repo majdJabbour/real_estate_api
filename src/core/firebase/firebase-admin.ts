@@ -1,14 +1,13 @@
 import "server-only";
 
 import { cert, getApps, initializeApp } from "firebase-admin/app";
-import { getAuth } from "firebase-admin/auth";
 
 import { readFirebaseEnvironment } from "@/core/config/firebase-env";
 import { ApiError } from "@/core/errors/api-error";
 
 const APP_NAME = "real-estate-api-auth";
 
-export function getFirebaseAuth() {
+export function getFirebaseApp() {
   if (process.env.FIREBASE_AUTH_EMULATOR_HOST) {
     throw new ApiError("SERVICE_UNAVAILABLE", "Authentication service unavailable");
   }
@@ -22,5 +21,5 @@ export function getFirebaseAuth() {
     throw new ApiError("SERVICE_UNAVAILABLE", "Authentication service unavailable");
   }
 
-  return getAuth(existing ?? initializeApp({ projectId, credential }, APP_NAME));
+  return existing ?? initializeApp({ projectId, credential }, APP_NAME);
 }

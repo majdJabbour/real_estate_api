@@ -1,6 +1,7 @@
 export type ApiErrorCode =
   | "VALIDATION_ERROR"
   | "UNAUTHORIZED"
+  | "FORBIDDEN"
   | "PROPERTY_NOT_FOUND"
   | "SERVICE_UNAVAILABLE";
 

@@ -57,6 +57,24 @@ The API verifies project binding, signature, expiry, revocation, and account sta
 
 Automated verification uses SDK mocks and credential-free HTTP tests. Successful live Google Sign-In and verification of a real Firebase ID token remain pending Flutter integration.
 
+## Favorites
+
+Favorites use the Firebase project's default Cloud Firestore database. The development database was configured as Standard Edition on the Spark plan in Belgium (`europe-west1`). The API uses its existing Firebase Admin service account. Grant the account the minimum IAM access needed to read and write favorites. [Firestore IAM](https://firebase.google.com/docs/firestore/security/iam)
+
+Each favorite is stored at `users/{uid}/favorites/{propertyId}` with `propertyId` and a server-generated `createdAt`. The property ID is the document ID. The API creates the favorite document directly without creating a parent user document. It takes the UID from the verified token and uses `Cache-Control: private, no-store` on all handler responses.
+
+| Request | Response |
+| --- | --- |
+| `GET /api/v1/favorites?page=1&limit=20` | Paginated property summaries, newest favorite first, with ascending property IDs for timestamp ties. |
+| `PUT /api/v1/favorites/rental-001` | `{"success":true,"data":{"propertyId":"rental-001","isFavorite":true}}` |
+| `DELETE /api/v1/favorites/rental-001` | `{"success":true,"data":{"propertyId":"rental-001","isFavorite":false}}` |
+
+Send `Authorization: Bearer <firebase-id-token>` with each request. Send `Accept-Language: ar` on GET for Arabic summaries. An unknown property returns 404 on PUT. PUT uses an atomic create, so concurrent or repeated requests preserve the original timestamp. DELETE succeeds when the reference is already absent and can remove references to properties that no longer exist. [Firestore document operations](https://googleapis.dev/nodejs/firestore/latest/DocumentReference.html)
+
+The repository's [firestore.rules](firestore.rules) defines a deny-all policy for direct client access. Flutter accesses favorites through the REST API. Firebase Admin calls use IAM and bypass Firestore Security Rules. The rules file is a local artifact, with cloud deployment handled separately. [Firestore Security Rules](https://firebase.google.com/docs/firestore/security/get-started)
+
+For this demo, each listing request reads the user's favorite timestamp projection and resolves the property summaries in one batch. Orphans are excluded before calculating the page and total. Read cost grows with the user's saved references, and absence from one page does not establish whether a listing is favorited. Firestore behavior is covered by mocks, and authenticated cloud persistence remains pending live verification.
+
 ## Validation
 
 ```sh

@@ -3,7 +3,7 @@ import { cert, getApps, initializeApp, type App, type Credential } from "firebas
 import { getAuth, type DecodedIdToken } from "firebase-admin/auth";
 
 import { readFirebaseEnvironment } from "@/core/config/firebase-env";
-import { getFirebaseAuth } from "@/core/firebase/firebase-admin";
+import { getFirebaseApp } from "@/core/firebase/firebase-admin";
 import { FirebaseTokenVerifier } from "@/features/authentication/infrastructure/firebase-token-verifier";
 
 vi.mock("server-only", () => ({}));
@@ -102,14 +102,14 @@ describe("Firebase Admin initialization", () => {
       name: "real-estate-api-auth", options: { projectId: "different-project", credential },
     }]);
 
-    expect(() => getFirebaseAuth()).toThrowError("Authentication service unavailable");
+    expect(() => getFirebaseApp()).toThrowError("Authentication service unavailable");
     expect(getAuth).not.toHaveBeenCalled();
     expect(initializeApp).not.toHaveBeenCalled();
   });
 
   it("fails closed when the Admin Auth emulator is configured", () => {
     vi.stubEnv("FIREBASE_AUTH_EMULATOR_HOST", "127.0.0.1:9099");
-    expect(() => getFirebaseAuth()).toThrowError("Authentication service unavailable");
+    expect(() => getFirebaseApp()).toThrowError("Authentication service unavailable");
     expect(initializeApp).not.toHaveBeenCalled();
   });
 });

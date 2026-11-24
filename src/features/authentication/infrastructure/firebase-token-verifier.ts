@@ -1,9 +1,9 @@
 import "server-only";
 
-import type { Auth, DecodedIdToken } from "firebase-admin/auth";
+import { getAuth as getAdminAuth, type Auth, type DecodedIdToken } from "firebase-admin/auth";
 
 import { ApiError } from "@/core/errors/api-error";
-import { getFirebaseAuth } from "@/core/firebase/firebase-admin";
+import { getFirebaseApp } from "@/core/firebase/firebase-admin";
 import type { AuthenticatedUser, TokenVerifier } from "@/features/authentication/domain/token-verifier";
 
 const invalidCredentialCodes = new Set([
@@ -33,7 +33,7 @@ function optionalClaim(value: unknown): string | null {
 }
 
 export class FirebaseTokenVerifier implements TokenVerifier {
-  constructor(private readonly getAuth: () => Pick<Auth, "verifyIdToken"> = getFirebaseAuth) {}
+  constructor(private readonly getAuth: () => Pick<Auth, "verifyIdToken"> = () => getAdminAuth(getFirebaseApp())) {}
 
   async verify(token: string): Promise<AuthenticatedUser> {
     let claims: DecodedIdToken;

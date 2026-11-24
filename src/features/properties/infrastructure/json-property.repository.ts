@@ -13,6 +13,7 @@ import {
 import {
   propertyDatasetSchema,
   propertyTypeSchema,
+  type PropertySummarySource,
   type ReadonlyProperty,
 } from "@/features/properties/domain/property.schema";
 import { buildPriceHistogram } from "@/features/properties/infrastructure/price-histogram";
@@ -128,6 +129,15 @@ export class JsonPropertyRepository implements PropertyRepository {
 
   async findById(id: string): Promise<ReadonlyProperty | null> {
     return this.dataset.byId.get(id) ?? null;
+  }
+
+  async findSummariesByIds(ids: readonly string[]): Promise<ReadonlyMap<string, PropertySummarySource>> {
+    const summaries = new Map<string, PropertySummarySource>();
+    for (const id of ids) {
+      const property = this.dataset.byId.get(id);
+      if (property) summaries.set(id, property);
+    }
+    return summaries;
   }
 
   async aggregateFilters(): Promise<PropertyFilterAggregation> {

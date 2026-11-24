@@ -1,13 +1,5 @@
+import type { Pagination } from "@/core/pagination";
 import type { Locale } from "@/features/properties/domain/property.schema";
-
-export type Pagination = {
-  page: number;
-  limit: number;
-  total: number;
-  totalPages: number;
-  hasNextPage: boolean;
-  hasPreviousPage: boolean;
-};
 
 export function jsonResponse<T>(body: T, status: number, locale?: Locale): Response {
   const headers = new Headers({ "Cache-Control": "no-store" });

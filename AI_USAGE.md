@@ -157,3 +157,24 @@ The initial tooling check exposed a missing typed `NODE_ENV` field in the child 
 | `git diff --check` | Exit 0. |
 
 All spawned servers were stopped. Successful live sign-in and verification with a real Firebase ID token remain pending. The API contract, generated Next.js agent rules, dependency versions, and dataset were preserved. The Aikido MCP scan was unavailable.
+
+## Phase 7 — Favorites and Firestore
+
+**Prompt summary.** The developer approved Phase 6, reported correcting the Firebase client email, and created the default Firestore database. Implement the authenticated favorites API, atomic mutations, deny-all rules, and offline verification. Real sign-in, real ID-token verification, and authenticated cloud persistence remain pending.
+
+**Tools and work.** Codex inspected the project docs, installed Next.js and Firebase SDK interfaces, and official Firestore guidance. It used Git, pnpm, Vitest, and the existing production HTTP harness. Repository tests use an injected mock with atomic create behavior. No cloud Firestore writes or Security Rules deployment were performed.
+
+**Decisions.** Firestore initializes lazily against the default database using the same compatible named Firebase Admin app as Auth. Each request verifies the Firebase ID token once and uses only its UID to scope the collection. The service reuses property ID validation and rejects Firestore-reserved IDs. The adapter rejects unsafe verified UIDs before resolving a collection. PUT requires an existing property and uses atomic create with a server timestamp. An already-existing document preserves its timestamp. DELETE supports orphan cleanup and repeat calls. GET reads one user's timestamp projection, sorts by full timestamp then ascending ID, and joins against the property repository in one batch. Orphans are excluded before totals and pagination. The local rules file denies direct client access. Admin access uses IAM.
+
+**Verification.** Node.js 24.22.3 LTS and pnpm 12.6.0 were used. The build and integration suite ran with the Firebase credentials blank. No test server remained after teardown. A pre-existing Next.js development server was identified by its start time and left running.
+
+| Command | Result |
+| --- | --- |
+| `pnpm lint`, `pnpm typecheck` | Exit 0 on the final runs. |
+| `pnpm test` | Exit 0. 248 tests across 13 files, including 24 new cases. |
+| `pnpm test:coverage` | Exit 0. V8 reported 99.13% statements, 97.63% branches, 100% functions, and 99.38% lines for the regular instrumented suite. |
+| `pnpm build` | Exit 0. Listed all existing routes and both favorites route files. |
+| `pnpm test:integration` | Exit 0. All 30 HTTP tests passed. The four public endpoints worked without credentials, and the three unauthenticated favorites requests returned 401, a Bearer challenge, and private no-store caching. |
+| `git diff --check` | Exit 0. |
+
+Listing read cost grows with a user's stored references. Mock tests cover ordering, isolation, orphan removal, configuration and storage failures, timestamp preservation, and repeated and concurrent mutations. They do not establish cloud persistence. The API contract, generated Next.js agent rules, dependency versions, normalized dataset, and ignored local credentials were preserved. The Aikido MCP scan was unavailable.

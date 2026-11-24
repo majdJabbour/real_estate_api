@@ -34,6 +34,7 @@ describe("property service", () => {
     const repository: PropertyRepository = {
       list,
       findById: vi.fn<PropertyRepository["findById"]>().mockResolvedValue(property),
+      findSummariesByIds: vi.fn<PropertyRepository["findSummariesByIds"]>(),
       aggregateFilters: vi.fn<PropertyRepository["aggregateFilters"]>(),
     };
     const service = new PropertyService(repository);

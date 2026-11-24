@@ -32,5 +32,6 @@ export type PropertyFilterAggregation = {
 export interface PropertyRepository {
   list(query: PropertyQuery): Promise<PropertyPage>;
   findById(id: string): Promise<ReadonlyProperty | null>;
+  findSummariesByIds(ids: readonly string[]): Promise<ReadonlyMap<string, PropertySummarySource>>;
   aggregateFilters(): Promise<PropertyFilterAggregation>;
 }

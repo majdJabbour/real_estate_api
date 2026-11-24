@@ -13,19 +13,9 @@ export class PropertyService {
 
   async list(query: PropertyQuery, locale: Locale = "en") {
     const { properties, total } = await this.repository.list(query);
-    const { page, limit } = query;
-    const totalPages = Math.ceil(total / limit);
-
     return {
       data: properties.map((property) => toPropertySummary(property, locale)),
-      pagination: {
-        page,
-        limit,
-        total,
-        totalPages,
-        hasNextPage: page < totalPages,
-        hasPreviousPage: totalPages > 0 && page > 1,
-      },
+      pagination: getPagination(query, total),
     };
   }
 
@@ -38,3 +28,4 @@ export class PropertyService {
     return toPropertyFilterOptions(await this.repository.aggregateFilters(), locale);
   }
 }
+import { getPagination } from "@/core/pagination";
