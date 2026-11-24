@@ -1,10 +1,10 @@
 # Real Estate API
 
-This Next.js App Router project is the backend scaffold for a bilingual Flutter real estate assessment. [API_CONTRACT.md](API_CONTRACT.md) describes the planned REST API.
+This Next.js App Router project is the backend for a bilingual Flutter real estate assessment. [API_CONTRACT.md](API_CONTRACT.md) describes the REST API.
 
 ## Local development
 
-Use Node.js 24 LTS and pnpm 12.6.0. The scaffold runs without Firebase credentials.
+Use Node.js 24 LTS and pnpm 12.6.0. The public API runs without Firebase credentials.
 
 ```sh
 nvm use
@@ -13,6 +13,27 @@ pnpm dev
 ```
 
 The starter page is available at [localhost:3000](http://localhost:3000).
+
+## Public API
+
+The local base URL is [http://localhost:3000/api/v1](http://localhost:3000/api/v1).
+
+| Request | Response |
+| --- | --- |
+| `GET /health` | Liveness response with `status: "ok"` in `data`. |
+| `GET /properties` | Property summaries and pagination. Defaults to page 1, 20 listings, newest first. |
+| `GET /properties/:id` | Full details for the property ID. |
+
+```sh
+curl -i 'http://localhost:3000/api/v1/health'
+curl -i 'http://localhost:3000/api/v1/properties?types=apartment,condo&minBedrooms=2&maxPrice=3000&featured=false&sortBy=price&sortOrder=asc&page=2&limit=2'
+curl -i -H 'Accept-Language: ar-SY, en;q=0.5' 'http://localhost:3000/api/v1/properties?search=Sunlit&limit=1'
+curl -i -H 'Accept-Language: en-US' 'http://localhost:3000/api/v1/properties/rental-001'
+```
+
+The property routes choose the supported language with the highest positive quality weight. Equal weights use header order. Regional tags match by primary language, and malformed preferences are skipped. English is the fallback when no named preference qualifies. Localized successes include `Content-Language` and `Vary: Accept-Language`. All API responses use `Cache-Control: no-store`.
+
+Invalid listing queries and malformed IDs return `400 VALIDATION_ERROR`. A syntactically valid ID that has no match returns `404 PROPERTY_NOT_FOUND`. IDs use URL-unreserved characters, have a maximum length of 128, and exclude the standalone dot segments `.` and `..`. Unmatched routes and requests rejected before reaching the handler use Next.js responses.
 
 ## Validation
 

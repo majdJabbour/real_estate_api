@@ -51,6 +51,14 @@ export const propertyQuerySchema = z.instanceof(URLSearchParams)
   .transform((params, context) => {
     const fields = new Map<string, string>();
     for (const [key, value] of params) {
+      if (!Object.hasOwn(propertyQueryFields.shape, key)) {
+        context.addIssue({
+          code: "custom",
+          path: ["query"],
+          message: "Unknown query parameter",
+        });
+        continue;
+      }
       if (fields.has(key)) {
         context.addIssue({
           code: "custom",

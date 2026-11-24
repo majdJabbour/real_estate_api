@@ -65,3 +65,25 @@ The Aikido MCP scanner was unavailable in this session. No Phase 1 developer rev
 | `git diff --check` | Exit 0. |
 
 Checksums confirmed the generated agent rules, API contract, implementation plan, dependency manifest, lockfile, and normalized fixture were preserved. The Aikido MCP scanner was unavailable. No Phase 2 developer review or rejection had occurred when this entry was written.
+
+## Phase 3 — Public routes and localization
+
+**Prompt summary.** After the developer approved Phase 2, implement the public health, property listing, and property detail handlers with shared response and error handling, locale negotiation, documentation, and focused verification.
+
+**Tools and work.** Codex used the shell and Git to inspect the project guidelines, installed Next.js Route Handler guides, and existing domain, repository, service, and tests. It implemented the three handlers, then used pnpm and Vitest for local validation and Node fetch for loopback checks against the built Next.js server.
+
+**Decisions.** The property handlers share a module-scoped service built with an explicitly injected JSON repository. The repository reuses the previously validated fixture. Health uses the response helper alone. Localized successes select the highest weighted supported language, break ties by header order, and fall back to English when no named preference qualifies. They set `Content-Language` and `Vary: Accept-Language`. All handler responses set `Cache-Control: no-store`. ID validation accepts 1–128 URL-unreserved characters and excludes standalone dot segments. Listing validation reports field errors without reflecting unknown keys or query values. Unexpected failures emit a fixed log message and a sanitized 500 response.
+
+**Verification.** Node.js 24.22.3 LTS, pnpm 12.6.0, and Vitest 5.1.1 were used. The loopback server needed permission to bind and receive requests outside the sandbox. It ran with a clean process environment and was stopped after verification.
+
+| Command | Result |
+| --- | --- |
+| `pnpm lint` | Exit 0. |
+| `pnpm typecheck` | Exit 0. Generated route types and TypeScript passed. |
+| `pnpm test` | Exit 0. Seven files and 175 tests passed, including 44 added tests. |
+| `pnpm test:coverage` | Exit 0. V8 reported 100% statements (170/170), branches (111/111), functions (53/53), and lines (163/163) across 15 instrumented source files. |
+| `pnpm build` | Exit 0. The build listed all three API routes. |
+| Local production HTTP smoke | Seven checks passed. Health, default listing, Arabic listing for English search, and English details returned 200. A reversed range and encoded slash in the ID returned 400. An unknown ID returned 404. JSON, no-store, and the applicable locale headers were verified. |
+| `git diff --check` | Exit 0. |
+
+The API contract, implementation plan, generated agent rules, dependencies, and normalized fixture were preserved. The Aikido MCP scan was unavailable. No Phase 3 developer review or rejection had occurred when this entry was written.
