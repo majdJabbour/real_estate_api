@@ -109,3 +109,26 @@ The API contract, implementation plan, generated agent rules, dependencies, and 
 | `git diff --check` | Exit 0. |
 
 The generated agent rules, API contract, plan, dependencies, and normalized fixture were preserved. The Aikido MCP scanner was unavailable. No Phase 4 developer review or rejection had occurred when this entry was written.
+
+## Phase 5 — Public integration and regression checks
+
+**Prompt summary.** After the developer approved Phase 4, verify all four public endpoints against a local Next.js production server and add repeatable Vitest HTTP regression tests. Keep the regular suite independent of the server and stop before optional authentication work.
+
+**Tools and work.** Codex inspected the project documents, public API implementation, existing tests, and the installed Next.js production CLI. It added a dedicated Vitest config, a server lifecycle setup, and 24 loopback tests. It used pnpm and Git for verification, Node fetch for HTTP assertions, and separate HEAD requests to confirm the public fixture image URLs.
+
+**Decisions.** The integration command uses an existing production build. Its setup starts the Next.js CLI as a directly owned child on an OS-assigned loopback port, with a minimal environment. It waits for the assigned address and a successful HTTP health probe under a 15-second deadline. Teardown waits for the child to close, with a forced shutdown fallback. The suite checks contract-shaped JSON, fixture-derived filtering and stable pagination, bilingual behavior, histogram membership, and safe application errors. It separately verifies a framework-generated 405.
+
+**Verification.** Node.js 24.22.3 LTS, pnpm 12.6.0, and Vitest 5.1.1 were used on macOS arm64. Loopback verification required sandbox permission. Twelve concurrent requests split between Arabic search and an English price/type filter, plus a follow-up, passed in 8 ms in the verbose local run. Identical inputs produced equivalent responses. The uncompressed English JSON bodies were 6,175 bytes for the default listing, 1,244 bytes for `rental-001`, and 1,184 bytes for filter options. All 18 image URLs returned HTTP 200 with `image/jpeg` in a separate HEAD check. The 30-record loopback check provides functional evidence for request isolation.
+
+| Command | Result |
+| --- | --- |
+| `pnpm lint` | Exit 0 with no warnings on the final run. |
+| `pnpm typecheck` | Exit 0. Generated route types and TypeScript passed. |
+| `pnpm test` | Exit 0. Nine files and 188 regular tests passed with no server. |
+| `pnpm test:coverage` | Exit 0. V8 reported 100% statements (213/213), branches (122/122), functions (66/66), and lines (202/202) across 17 instrumented source files from the regular suite. |
+| `pnpm build` | Exit 0. Listed all four public routes. |
+| `pnpm test:integration` | Exit 0. One file and 24 production HTTP tests passed. |
+| `pnpm test:integration --reporter=verbose --silent=false` | Exit 0. Confirmed the payload sizes and concurrency observations above. No Next.js process was found after teardown. |
+| `git diff --check` | Exit 0. |
+
+The initial tooling check exposed a missing typed `NODE_ENV` field in the child environment and an unused startup event variable. Codex corrected both in the new setup. The HTTP suite found no application regression that required a fix. The generated agent rules, contract, normalized dataset, lockfile, and application source were preserved. The Aikido MCP scan was unavailable. No Phase 5 developer review or rejection had occurred when this entry was written.

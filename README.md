@@ -47,9 +47,12 @@ pnpm typecheck
 pnpm test
 pnpm test:coverage
 pnpm build
+pnpm test:integration
 ```
 
-Use `pnpm test:watch` during development and `pnpm start` to serve the local production build.
+`pnpm test` runs unit and direct route-handler tests. Use `pnpm test:watch` during development. These tests run without an HTTP server.
+
+Run `pnpm build` before `pnpm test:integration` and rebuild after changing application code. The integration suite starts `next start` on an OS-assigned loopback port, waits for a successful health response, and stops its child process after the run. It requires local socket access and runs without Firebase credentials or external services. Use `pnpm start` to serve the production build manually.
 
 The Node.js range in `package.json` selects the Node 24 runtime for a future Vercel deployment. [Vercel Node.js versions](https://vercel.com/docs/functions/runtimes/node-js/node-js-versions)
 
@@ -59,7 +62,7 @@ The [normalized JSON fixture](src/data/properties.normalized.json) has 30 fictio
 
 The full fixture is parsed by Zod in the test suite. The property mappers accept `en` or `ar` and use English per field when Arabic is missing. Each fixture title, description, address, and review comment includes both translations.
 
-The fixture uses 18 stock photos hosted by `images.pexels.com`. Images are shared across listings and illustrate property styles. Each unique URL returned HTTP 200 with `image/jpeg` in a HEAD check on 2026-11-24. No fixture URL remains unverified at the HTTP level. Image rendering and continued CDN availability depend on the client and Pexels. Tests run offline. [Pexels license](https://www.pexels.com/license/)
+The fixture uses 18 stock photos hosted by `images.pexels.com`. Images are shared across listings and illustrate property styles. Each unique URL returned HTTP 200 with `image/jpeg` in a HEAD check on 2026-11-24. The API returns image links. Rendering and continued CDN availability depend on the client and Pexels. The integration suite checks the links in the fixture without fetching the images. [Pexels license](https://www.pexels.com/license/)
 
 ## Property search and filtering
 
@@ -67,7 +70,7 @@ The property query schema validates decoded `URLSearchParams` and preserves repe
 
 Search applies Unicode NFKC, lowercase conversion, Arabic combining-mark and tatweel removal, replacement of `أ إ آ ٱ` with `ا`, and trimming and collapsing whitespace to single spaces. It checks for a substring within each available English or Arabic title, address, and description. A term that becomes empty applies no search constraint. The response language is selected separately.
 
-The JSON repository validates and indexes the bundled fixture once per module instance. It filters before counting and sorting, breaks sort ties by ascending ID, and then slices the requested page. JSON queries run in memory over the demo fixture.
+The JSON repository validates and indexes the bundled fixture once per module instance. It filters before counting and sorting, breaks sort ties by ascending ID, and then slices the requested page using offset pagination. Page boundaries are stable for an unchanged query and dataset. JSON queries run in memory over the 30-record demo fixture. The concurrent loopback check exercises request isolation at that size.
 
 ### Filter options
 
