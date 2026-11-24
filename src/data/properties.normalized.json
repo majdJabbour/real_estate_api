@@ -1,0 +1,1717 @@
+[
+  {
+    "id": "rental-001",
+    "title": {
+      "en": "Sunlit Courtyard Apartment",
+      "ar": "شقة مشمسة تطل على فناء"
+    },
+    "address": {
+      "en": "Lincoln Square, Chicago, IL",
+      "ar": "لينكولن سكوير، شيكاغو، إلينوي"
+    },
+    "type": "apartment",
+    "price": 1850,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.7,
+    "thumbnail": "https://images.pexels.com/photos/7173672/pexels-photo-7173672.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": true,
+    "description": {
+      "en": "Corner rental with tall windows, a courtyard balcony, and a separate dining alcove.",
+      "ar": "شقة زاوية للإيجار بنوافذ عالية وشرفة تطل على الفناء وركن مستقل للطعام."
+    },
+    "bedrooms": 1,
+    "bathrooms": 1,
+    "area": 71,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/7173672/pexels-photo-7173672.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7546221/pexels-photo-7546221.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "balcony",
+      "elevator",
+      "bike-storage"
+    ],
+    "agent": {
+      "id": "agent-chicago",
+      "name": "Maya Kattan",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 41.969,
+      "longitude": -87.69
+    },
+    "reviews": [
+      {
+        "id": "rental-001-review-1",
+        "reviewerName": "Avery Lane",
+        "rating": 5,
+        "comment": {
+          "en": "The courtyard stayed quiet on weekday mornings.",
+          "ar": "كان الفناء هادئاً في صباح أيام العمل."
+        },
+        "date": "2025-02-24T16:00:00Z"
+      },
+      {
+        "id": "rental-001-review-2",
+        "reviewerName": "Hana Mansour",
+        "rating": 4,
+        "comment": {
+          "en": "The agent arranged a second viewing at short notice.",
+          "ar": "رتّب الوسيط زيارة ثانية خلال مهلة قصيرة."
+        },
+        "date": "2025-03-09T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-02-03T16:00:00Z"
+  },
+  {
+    "id": "rental-002",
+    "title": {
+      "en": "Lake Park Apartment",
+      "ar": "شقة قرب حديقة البحيرة"
+    },
+    "address": {
+      "en": "Mueller, Austin, TX",
+      "ar": "مولر، أوستن، تكساس"
+    },
+    "type": "apartment",
+    "price": 2190,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.5,
+    "thumbnail": "https://images.pexels.com/photos/7166561/pexels-photo-7166561.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": false,
+    "description": {
+      "en": "Two-bedroom rental with an open kitchen and covered parking near the park trails.",
+      "ar": "شقة للإيجار بغرفتي نوم ومطبخ مفتوح وموقف مغطى قرب مسارات الحديقة."
+    },
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "area": 94,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/7166561/pexels-photo-7166561.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7535074/pexels-photo-7535074.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "covered-parking",
+      "in-unit-laundry",
+      "air-conditioning"
+    ],
+    "agent": {
+      "id": "agent-austin",
+      "name": "Jonah Reyes",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 30.299,
+      "longitude": -97.704
+    },
+    "reviews": [
+      {
+        "id": "rental-002-review-1",
+        "reviewerName": "Morgan Ellis",
+        "rating": 4,
+        "comment": {
+          "en": "The covered parking was useful on hot afternoons.",
+          "ar": "أفادنا الموقف المغطى في فترات الظهيرة الحارة."
+        },
+        "date": "2025-04-21T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-03-30T16:00:00Z"
+  },
+  {
+    "id": "rental-003",
+    "title": {
+      "en": "Historic Brick Apartment",
+      "ar": "شقة في مبنى تاريخي من الطوب"
+    },
+    "address": {
+      "en": "Capitol Hill, Denver, CO",
+      "ar": "كابيتول هيل، دنفر، كولورادو"
+    },
+    "type": "apartment",
+    "price": 1490,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.2,
+    "thumbnail": "https://images.pexels.com/photos/7173672/pexels-photo-7173672.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": true,
+    "description": {
+      "en": "One-bedroom rental in a brick walk-up with original wood floors and a compact galley kitchen.",
+      "ar": "شقة للإيجار بغرفة نوم في مبنى من الطوب بلا مصعد، بأرضيات خشبية أصلية ومطبخ ضيق."
+    },
+    "bedrooms": 1,
+    "bathrooms": 1,
+    "area": 57,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/7173672/pexels-photo-7173672.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/34989785/pexels-photo-34989785.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "bike-storage",
+      "shared-laundry"
+    ],
+    "agent": {
+      "id": "agent-denver",
+      "name": "Leila Haddad",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 39.734,
+      "longitude": -104.979
+    },
+    "reviews": [
+      {
+        "id": "rental-003-review-1",
+        "reviewerName": "Nour Salem",
+        "rating": 4,
+        "comment": {
+          "en": "The wood floors had character, although the stairs were narrow.",
+          "ar": "أضفت الأرضيات الخشبية طابعاً جميلاً، لكن الدرج كان ضيقاً."
+        },
+        "date": "2025-06-16T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-05-24T16:00:00Z"
+  },
+  {
+    "id": "rental-004",
+    "title": {
+      "en": "Riverside Family Apartment",
+      "ar": "شقة عائلية قرب النهر"
+    },
+    "address": {
+      "en": "Sellwood, Portland, OR",
+      "ar": "سيلوود، بورتلاند، أوريغون"
+    },
+    "type": "apartment",
+    "price": 2475,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.6,
+    "thumbnail": "https://images.pexels.com/photos/6890403/pexels-photo-6890403.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": false,
+    "description": {
+      "en": "Three-bedroom rental with a wide living room and space for bikes near the river path.",
+      "ar": "شقة للإيجار بثلاث غرف نوم وصالة واسعة ومكان للدراجات قرب ممشى النهر."
+    },
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "area": 112,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/6890403/pexels-photo-6890403.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7546221/pexels-photo-7546221.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "bike-storage",
+      "in-unit-laundry",
+      "patio"
+    ],
+    "agent": {
+      "id": "agent-portland",
+      "name": "Ellis Morgan",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 45.466,
+      "longitude": -122.653
+    },
+    "reviews": [
+      {
+        "id": "rental-004-review-1",
+        "reviewerName": "Riley Chen",
+        "rating": 5,
+        "comment": {
+          "en": "We could reach the river trail on foot.",
+          "ar": "تمكّنا من الوصول إلى ممشى النهر سيراً."
+        },
+        "date": "2025-03-19T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-02-23T16:00:00Z"
+  },
+  {
+    "id": "rental-005",
+    "title": {
+      "en": "Arts District Apartment",
+      "ar": "شقة في حي الفنون"
+    },
+    "address": {
+      "en": "Northeast, Minneapolis, MN",
+      "ar": "نورث إيست، مينيابوليس، مينيسوتا"
+    },
+    "type": "apartment",
+    "price": 1625,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.3,
+    "thumbnail": "https://images.pexels.com/photos/7173672/pexels-photo-7173672.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": false,
+    "description": {
+      "en": "A second-floor rental with two bedrooms, an eat-in kitchen, and shared laundry in the building.",
+      "ar": "شقة للإيجار في الطابق الثاني بغرفتي نوم ومطبخ يتسع لطاولة طعام وغرفة غسيل مشتركة في المبنى."
+    },
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "area": 80,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/7173672/pexels-photo-7173672.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7535074/pexels-photo-7535074.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "shared-laundry",
+      "pet-friendly"
+    ],
+    "agent": {
+      "id": "agent-minneapolis",
+      "name": "Samira Nasser",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 45.004,
+      "longitude": -93.255
+    },
+    "reviews": [
+      {
+        "id": "rental-005-review-1",
+        "reviewerName": "Hana Mansour",
+        "rating": 4,
+        "comment": {
+          "en": "The kitchen had enough space for dinner with friends.",
+          "ar": "كان المطبخ يتسع لتناول العشاء مع الأصدقاء."
+        },
+        "date": "2025-05-14T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-04-19T16:00:00Z"
+  },
+  {
+    "id": "rental-006",
+    "title": {
+      "en": "Brick Row Townhome",
+      "ar": "تاون هاوس في صف من الطوب"
+    },
+    "address": {
+      "en": "Bridgeport, Chicago, IL",
+      "ar": "بريدجبورت، شيكاغو، إلينوي"
+    },
+    "type": "townhome",
+    "price": 2860,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.8,
+    "thumbnail": "https://images.pexels.com/photos/7028105/pexels-photo-7028105.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": true,
+    "description": {
+      "en": "Attached three-bedroom home with its own entrance, rear patio, and garage.",
+      "ar": "منزل متلاصق بثلاث غرف نوم ومدخل خاص وفناء خلفي ومرآب."
+    },
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "area": 141,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/7028105/pexels-photo-7028105.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7535074/pexels-photo-7535074.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "garage",
+      "patio",
+      "in-unit-laundry"
+    ],
+    "agent": {
+      "id": "agent-chicago",
+      "name": "Maya Kattan",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 41.838,
+      "longitude": -87.65
+    },
+    "reviews": [
+      {
+        "id": "rental-006-review-1",
+        "reviewerName": "Casey Reed",
+        "rating": 5,
+        "comment": {
+          "en": "The private entrance made moving in straightforward.",
+          "ar": "سهّل المدخل الخاص عملية الانتقال إلى المنزل."
+        },
+        "date": "2025-07-09T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-06-13T16:00:00Z"
+  },
+  {
+    "id": "rental-007",
+    "title": {
+      "en": "Crestview Corner Townhome",
+      "ar": "تاون هاوس زاوية في كريستفيو"
+    },
+    "address": {
+      "en": "Crestview, Austin, TX",
+      "ar": "كريستفيو، أوستن، تكساس"
+    },
+    "type": "townhome",
+    "price": 2780,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.6,
+    "thumbnail": "https://images.pexels.com/photos/7028105/pexels-photo-7028105.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": false,
+    "description": {
+      "en": "End-unit townhome with a fenced patio and a quiet upstairs office nook.",
+      "ar": "منزل متلاصق في نهاية الصف، بفناء مسيّج وركن مكتب هادئ في الطابق العلوي."
+    },
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "area": 133,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/7028105/pexels-photo-7028105.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7546221/pexels-photo-7546221.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "patio",
+      "air-conditioning",
+      "ev-charging"
+    ],
+    "agent": {
+      "id": "agent-austin",
+      "name": "Jonah Reyes",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 30.345,
+      "longitude": -97.729
+    },
+    "reviews": [
+      {
+        "id": "rental-007-review-1",
+        "reviewerName": "Robin Vega",
+        "rating": 5,
+        "comment": {
+          "en": "The upstairs nook worked well as a home office.",
+          "ar": "كان الركن العلوي مناسباً للعمل من المنزل."
+        },
+        "date": "2025-04-05T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-03-15T16:00:00Z"
+  },
+  {
+    "id": "rental-008",
+    "title": {
+      "en": "Parkside Row Home",
+      "ar": "منزل متلاصق قرب الحديقة"
+    },
+    "address": {
+      "en": "Central Park, Denver, CO",
+      "ar": "سنترال بارك، دنفر، كولورادو"
+    },
+    "type": "townhome",
+    "price": 2490,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.4,
+    "thumbnail": "https://images.pexels.com/photos/20621546/pexels-photo-20621546.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": false,
+    "description": {
+      "en": "Two-bedroom row home with an upstairs laundry closet and a front porch facing a greenway.",
+      "ar": "منزل متلاصق بغرفتي نوم وخزانة للغسيل في الطابق العلوي وشرفة أمامية تطل على ممر أخضر."
+    },
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "area": 116,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/20621546/pexels-photo-20621546.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7535074/pexels-photo-7535074.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "front-porch",
+      "in-unit-laundry",
+      "garage"
+    ],
+    "agent": {
+      "id": "agent-denver",
+      "name": "Leila Haddad",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 39.761,
+      "longitude": -104.891
+    },
+    "reviews": [
+      {
+        "id": "rental-008-review-1",
+        "reviewerName": "Drew Diaz",
+        "rating": 4,
+        "comment": {
+          "en": "The porch was a nice spot for morning coffee.",
+          "ar": "كانت الشرفة مكاناً لطيفاً لقهوة الصباح."
+        },
+        "date": "2025-05-31T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-05-09T16:00:00Z"
+  },
+  {
+    "id": "rental-009",
+    "title": {
+      "en": "Tree-Lined Townhome",
+      "ar": "تاون هاوس على شارع مشجّر"
+    },
+    "address": {
+      "en": "St. Johns, Portland, OR",
+      "ar": "سانت جونز، بورتلاند، أوريغون"
+    },
+    "type": "townhome",
+    "price": 3190,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.7,
+    "thumbnail": "https://images.pexels.com/photos/16375856/pexels-photo-16375856.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": true,
+    "description": {
+      "en": "Three-level attached rental with four bedrooms, a small deck, and room for bikes in the garage.",
+      "ar": "منزل متلاصق للإيجار من ثلاثة طوابق، بأربع غرف نوم وتراس صغير ومكان للدراجات في المرآب."
+    },
+    "bedrooms": 4,
+    "bathrooms": 3,
+    "area": 172,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/16375856/pexels-photo-16375856.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7546221/pexels-photo-7546221.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "garage",
+      "deck",
+      "bike-storage"
+    ],
+    "agent": {
+      "id": "agent-portland",
+      "name": "Ellis Morgan",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 45.59,
+      "longitude": -122.751
+    },
+    "reviews": [
+      {
+        "id": "rental-009-review-1",
+        "reviewerName": "Jamie Ford",
+        "rating": 5,
+        "comment": {
+          "en": "The garage had enough space for our bikes and a car.",
+          "ar": "اتسع المرآب لدراجاتنا وسيارة."
+        },
+        "date": "2025-03-03T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-02-08T16:00:00Z"
+  },
+  {
+    "id": "rental-010",
+    "title": {
+      "en": "Porch Row Townhome",
+      "ar": "تاون هاوس بشرفة أمامية"
+    },
+    "address": {
+      "en": "Longfellow, Minneapolis, MN",
+      "ar": "لونغفيلو، مينيابوليس، مينيسوتا"
+    },
+    "type": "townhome",
+    "price": 2125,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.2,
+    "thumbnail": "https://images.pexels.com/photos/20621546/pexels-photo-20621546.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": false,
+    "description": {
+      "en": "Two-bedroom attached home with a covered porch and extra storage under the stairs.",
+      "ar": "منزل متلاصق بغرفتي نوم وشرفة مغطاة ومساحة تخزين إضافية تحت الدرج."
+    },
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "area": 105,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/20621546/pexels-photo-20621546.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7546221/pexels-photo-7546221.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "front-porch",
+      "storage",
+      "pet-friendly"
+    ],
+    "agent": {
+      "id": "agent-minneapolis",
+      "name": "Samira Nasser",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 44.949,
+      "longitude": -93.216
+    },
+    "reviews": [
+      {
+        "id": "rental-010-review-1",
+        "reviewerName": "Kiran Patel",
+        "rating": 4,
+        "comment": {
+          "en": "The under-stair storage was handy for winter gear.",
+          "ar": "كانت مساحة التخزين تحت الدرج مفيدة لمعدات الشتاء."
+        },
+        "date": "2025-04-28T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-04-04T16:00:00Z"
+  },
+  {
+    "id": "rental-011",
+    "title": {
+      "en": "Maple Garden House",
+      "ar": "منزل مستقل بحديقة قيقب"
+    },
+    "address": {
+      "en": "Beverly, Chicago, IL",
+      "ar": "بيفرلي، شيكاغو، إلينوي"
+    },
+    "type": "house",
+    "price": 3450,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.9,
+    "thumbnail": "https://images.pexels.com/photos/7045701/pexels-photo-7045701.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": true,
+    "description": {
+      "en": "Detached family home with four bedrooms, a shaded garden, and a separate mudroom.",
+      "ar": "منزل عائلي مستقل بأربع غرف نوم وحديقة مظللة وغرفة مدخل منفصلة للمعاطف والأحذية."
+    },
+    "bedrooms": 4,
+    "bathrooms": 3,
+    "area": 196,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/7045701/pexels-photo-7045701.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7535074/pexels-photo-7535074.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "garden",
+      "garage",
+      "pet-friendly"
+    ],
+    "agent": {
+      "id": "agent-chicago",
+      "name": "Maya Kattan",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 41.716,
+      "longitude": -87.675
+    },
+    "reviews": [
+      {
+        "id": "rental-011-review-1",
+        "reviewerName": "Taylor James",
+        "rating": 5,
+        "comment": {
+          "en": "The shaded yard stayed pleasant even at midday.",
+          "ar": "بقيت الحديقة المظللة لطيفة حتى وقت الظهيرة."
+        },
+        "date": "2025-06-23T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-05-29T16:00:00Z"
+  },
+  {
+    "id": "rental-012",
+    "title": {
+      "en": "Shaded Bungalow",
+      "ar": "منزل بطابق واحد وفناء مظلل"
+    },
+    "address": {
+      "en": "Cherrywood, Austin, TX",
+      "ar": "تشيريوود، أوستن، تكساس"
+    },
+    "type": "house",
+    "price": 2380,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.4,
+    "thumbnail": "https://images.pexels.com/photos/8134817/pexels-photo-8134817.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": false,
+    "description": {
+      "en": "Detached two-bedroom bungalow with a shaded deck and a fenced back yard.",
+      "ar": "منزل مستقل من طابق واحد بغرفتي نوم وتراس مظلل وفناء خلفي مسيّج."
+    },
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "area": 104,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/8134817/pexels-photo-8134817.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7546221/pexels-photo-7546221.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "deck",
+      "garden",
+      "air-conditioning"
+    ],
+    "agent": {
+      "id": "agent-austin",
+      "name": "Jonah Reyes",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 30.291,
+      "longitude": -97.718
+    },
+    "reviews": [
+      {
+        "id": "rental-012-review-1",
+        "reviewerName": "Noor Faris",
+        "rating": 4,
+        "comment": {
+          "en": "We used the deck nearly every evening.",
+          "ar": "استخدمنا التراس كل مساء تقريباً."
+        },
+        "date": "2025-03-26T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-02-28T16:00:00Z"
+  },
+  {
+    "id": "rental-013",
+    "title": {
+      "en": "Glass Garden House",
+      "ar": "منزل مستقل بواجهة زجاجية وحديقة"
+    },
+    "address": {
+      "en": "Hilltop, Denver, CO",
+      "ar": "هيلتوب، دنفر، كولورادو"
+    },
+    "type": "house",
+    "price": 4250,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.8,
+    "thumbnail": "https://images.pexels.com/photos/10610731/pexels-photo-10610731.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": true,
+    "description": {
+      "en": "Detached five-bedroom home with broad garden doors, a guest suite, and a two-car garage.",
+      "ar": "منزل مستقل بخمس غرف نوم وأبواب واسعة تطل على الحديقة وجناح للضيوف ومرآب لسيارتين."
+    },
+    "bedrooms": 5,
+    "bathrooms": 4,
+    "area": 238,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/10610731/pexels-photo-10610731.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7535074/pexels-photo-7535074.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "garden",
+      "garage",
+      "ev-charging",
+      "air-conditioning"
+    ],
+    "agent": {
+      "id": "agent-denver",
+      "name": "Leila Haddad",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 39.722,
+      "longitude": -104.919
+    },
+    "reviews": [
+      {
+        "id": "rental-013-review-1",
+        "reviewerName": "Reese Elliott",
+        "rating": 5,
+        "comment": {
+          "en": "The guest suite offered plenty of privacy.",
+          "ar": "وفّر جناح الضيوف خصوصية جيدة."
+        },
+        "date": "2025-05-15T16:00:00Z"
+      },
+      {
+        "id": "rental-013-review-2",
+        "reviewerName": "Nour Salem",
+        "rating": 4,
+        "comment": {
+          "en": "The agent arranged a second viewing at short notice.",
+          "ar": "رتّب الوسيط زيارة ثانية خلال مهلة قصيرة."
+        },
+        "date": "2025-05-28T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-04-24T16:00:00Z"
+  },
+  {
+    "id": "rental-014",
+    "title": {
+      "en": "Woodstock Garden Cottage",
+      "ar": "كوخ مستقل بحديقة في وودستوك"
+    },
+    "address": {
+      "en": "Woodstock, Portland, OR",
+      "ar": "وودستوك، بورتلاند، أوريغون"
+    },
+    "type": "house",
+    "price": 2600,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.5,
+    "thumbnail": "https://images.pexels.com/photos/8134817/pexels-photo-8134817.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": false,
+    "description": {
+      "en": "Detached three-bedroom cottage with a fenced garden and a dedicated laundry room.",
+      "ar": "كوخ مستقل بثلاث غرف نوم وحديقة مسيّجة وغرفة غسيل خاصة."
+    },
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "area": 132,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/8134817/pexels-photo-8134817.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7546221/pexels-photo-7546221.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "garden",
+      "in-unit-laundry",
+      "pet-friendly"
+    ],
+    "agent": {
+      "id": "agent-portland",
+      "name": "Ellis Morgan",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 45.479,
+      "longitude": -122.607
+    },
+    "reviews": [
+      {
+        "id": "rental-014-review-1",
+        "reviewerName": "Emery Shaw",
+        "rating": 4,
+        "comment": {
+          "en": "The fenced yard made it easy to bring our dog.",
+          "ar": "سهّل علينا الفناء المسيّج اصطحاب كلبنا."
+        },
+        "date": "2025-07-10T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-06-18T16:00:00Z"
+  },
+  {
+    "id": "rental-015",
+    "title": {
+      "en": "Lakeside Family House",
+      "ar": "منزل عائلي مستقل قرب البحيرة"
+    },
+    "address": {
+      "en": "Linden Hills, Minneapolis, MN",
+      "ar": "ليندن هيلز، مينيابوليس، مينيسوتا"
+    },
+    "type": "house",
+    "price": 3325,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.6,
+    "thumbnail": "https://images.pexels.com/photos/7045701/pexels-photo-7045701.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": false,
+    "description": {
+      "en": "Detached four-bedroom rental with a finished basement and room to store paddleboards.",
+      "ar": "منزل مستقل للإيجار بأربع غرف نوم وقبو مجهّز ومساحة لتخزين ألواح التجديف."
+    },
+    "bedrooms": 4,
+    "bathrooms": 2,
+    "area": 187,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/7045701/pexels-photo-7045701.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7535074/pexels-photo-7535074.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "storage",
+      "garage",
+      "garden"
+    ],
+    "agent": {
+      "id": "agent-minneapolis",
+      "name": "Samira Nasser",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 44.925,
+      "longitude": -93.316
+    },
+    "reviews": [
+      {
+        "id": "rental-015-review-1",
+        "reviewerName": "Avery Lane",
+        "rating": 5,
+        "comment": {
+          "en": "The extra storage kept outdoor gear out of the hallway.",
+          "ar": "ساعدتنا مساحة التخزين الإضافية على إبقاء المعدات بعيداً عن الممر."
+        },
+        "date": "2025-04-12T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-03-20T16:00:00Z"
+  },
+  {
+    "id": "rental-016",
+    "title": {
+      "en": "Skyline Condo",
+      "ar": "شقة كوندو بإطلالة على المدينة"
+    },
+    "address": {
+      "en": "South Loop, Chicago, IL",
+      "ar": "ساوث لوب، شيكاغو، إلينوي"
+    },
+    "type": "condo",
+    "price": 2980,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.8,
+    "thumbnail": "https://images.pexels.com/photos/5825550/pexels-photo-5825550.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": true,
+    "description": {
+      "en": "Privately owned rental condo with two bedrooms, a staffed lobby, and a shared rooftop terrace.",
+      "ar": "شقة كوندو مملوكة ملكية خاصة ومعروضة للإيجار، بغرفتي نوم وبهو فيه موظفون وتراس مشترك على السطح."
+    },
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "area": 110,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/5825550/pexels-photo-5825550.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7535074/pexels-photo-7535074.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "concierge",
+      "roof-terrace",
+      "elevator"
+    ],
+    "agent": {
+      "id": "agent-chicago",
+      "name": "Maya Kattan",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 41.865,
+      "longitude": -87.624
+    },
+    "reviews": [
+      {
+        "id": "rental-016-review-1",
+        "reviewerName": "Morgan Ellis",
+        "rating": 5,
+        "comment": {
+          "en": "The rooftop terrace had room even on weekends.",
+          "ar": "كانت هناك مساحة على تراس السطح حتى في عطلات نهاية الأسبوع."
+        },
+        "date": "2025-06-07T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-05-14T16:00:00Z"
+  },
+  {
+    "id": "rental-017",
+    "title": {
+      "en": "Greenbelt Condo",
+      "ar": "شقة كوندو قرب الحزام الأخضر"
+    },
+    "address": {
+      "en": "Zilker, Austin, TX",
+      "ar": "زيلكر، أوستن، تكساس"
+    },
+    "type": "condo",
+    "price": 2140,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.6,
+    "thumbnail": "https://images.pexels.com/photos/7173672/pexels-photo-7173672.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": false,
+    "description": {
+      "en": "Owner-let one-bedroom condo with a shaded balcony, a shared pool, and assigned parking.",
+      "ar": "شقة كوندو بغرفة نوم يؤجرها مالكها، مع شرفة مظللة ومسبح مشترك وموقف مخصص."
+    },
+    "bedrooms": 1,
+    "bathrooms": 1,
+    "area": 74,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/7173672/pexels-photo-7173672.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7546221/pexels-photo-7546221.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "balcony",
+      "pool",
+      "covered-parking"
+    ],
+    "agent": {
+      "id": "agent-austin",
+      "name": "Jonah Reyes",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 30.259,
+      "longitude": -97.773
+    },
+    "reviews": [
+      {
+        "id": "rental-017-review-1",
+        "reviewerName": "Nour Salem",
+        "rating": 5,
+        "comment": {
+          "en": "The assigned space made late arrivals easier.",
+          "ar": "جعل الموقف المخصص العودة في وقت متأخر أسهل."
+        },
+        "date": "2025-03-10T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-02-13T16:00:00Z"
+  },
+  {
+    "id": "rental-018",
+    "title": {
+      "en": "Gallery Condo",
+      "ar": "شقة كوندو قرب المعارض"
+    },
+    "address": {
+      "en": "Cherry Creek, Denver, CO",
+      "ar": "تشيري كريك، دنفر، كولورادو"
+    },
+    "type": "condo",
+    "price": 3650,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.9,
+    "thumbnail": "https://images.pexels.com/photos/7166561/pexels-photo-7166561.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": true,
+    "description": {
+      "en": "Privately owned three-bedroom condo for rent in a building with a gym and a staffed front desk.",
+      "ar": "شقة كوندو للإيجار مملوكة ملكية خاصة، بثلاث غرف نوم في مبنى يضم صالة رياضية ومكتب استقبال."
+    },
+    "bedrooms": 3,
+    "bathrooms": 3,
+    "area": 147,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/7166561/pexels-photo-7166561.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7535074/pexels-photo-7535074.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "gym",
+      "concierge",
+      "elevator",
+      "covered-parking"
+    ],
+    "agent": {
+      "id": "agent-denver",
+      "name": "Leila Haddad",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 39.72,
+      "longitude": -104.952
+    },
+    "reviews": [
+      {
+        "id": "rental-018-review-1",
+        "reviewerName": "Riley Chen",
+        "rating": 5,
+        "comment": {
+          "en": "The gym was clean and quiet before work.",
+          "ar": "كانت الصالة الرياضية نظيفة وهادئة قبل العمل."
+        },
+        "date": "2025-05-05T16:00:00Z"
+      },
+      {
+        "id": "rental-018-review-2",
+        "reviewerName": "Drew Diaz",
+        "rating": 4,
+        "comment": {
+          "en": "The agent arranged a second viewing at short notice.",
+          "ar": "رتّب الوسيط زيارة ثانية خلال مهلة قصيرة."
+        },
+        "date": "2025-05-13T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-04-09T16:00:00Z"
+  },
+  {
+    "id": "rental-019",
+    "title": {
+      "en": "Courtyard Condo",
+      "ar": "شقة كوندو تطل على فناء"
+    },
+    "address": {
+      "en": "Pearl District, Portland, OR",
+      "ar": "بيرل ديستريكت، بورتلاند، أوريغون"
+    },
+    "type": "condo",
+    "price": 2540,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.5,
+    "thumbnail": "https://images.pexels.com/photos/7173672/pexels-photo-7173672.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": false,
+    "description": {
+      "en": "Owner-let two-bedroom condo with courtyard windows, a bike room, and elevator access.",
+      "ar": "شقة كوندو بغرفتي نوم يؤجرها مالكها، بنوافذ تطل على فناء وغرفة للدراجات ومصعد."
+    },
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "area": 96,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/7173672/pexels-photo-7173672.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7535074/pexels-photo-7535074.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "bike-storage",
+      "elevator",
+      "balcony"
+    ],
+    "agent": {
+      "id": "agent-portland",
+      "name": "Ellis Morgan",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 45.53,
+      "longitude": -122.685
+    },
+    "reviews": [
+      {
+        "id": "rental-019-review-1",
+        "reviewerName": "Hana Mansour",
+        "rating": 4,
+        "comment": {
+          "en": "The bike room had secure racks and was easy to reach.",
+          "ar": "كانت حوامل الدراجات آمنة ويسهل الوصول إليها."
+        },
+        "date": "2025-06-24T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-06-03T16:00:00Z"
+  },
+  {
+    "id": "rental-020",
+    "title": {
+      "en": "Warehouse District Condo",
+      "ar": "شقة كوندو في حي المستودعات"
+    },
+    "address": {
+      "en": "North Loop, Minneapolis, MN",
+      "ar": "نورث لوب، مينيابوليس، مينيسوتا"
+    },
+    "type": "condo",
+    "price": 1920,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.4,
+    "thumbnail": "https://images.pexels.com/photos/5825550/pexels-photo-5825550.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": false,
+    "description": {
+      "en": "Privately owned one-bedroom condo with high ceilings in a converted warehouse and a shared roof deck.",
+      "ar": "شقة كوندو مملوكة ملكية خاصة بغرفة نوم وسقف مرتفع، في مستودع أعيد تأهيله مع تراس مشترك على السطح."
+    },
+    "bedrooms": 1,
+    "bathrooms": 1,
+    "area": 69,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/5825550/pexels-photo-5825550.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7546221/pexels-photo-7546221.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "roof-terrace",
+      "elevator",
+      "in-unit-laundry"
+    ],
+    "agent": {
+      "id": "agent-minneapolis",
+      "name": "Samira Nasser",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 44.987,
+      "longitude": -93.279
+    },
+    "reviews": [
+      {
+        "id": "rental-020-review-1",
+        "reviewerName": "Casey Reed",
+        "rating": 4,
+        "comment": {
+          "en": "The high ceiling made the living room feel spacious.",
+          "ar": "جعل السقف المرتفع غرفة المعيشة تبدو واسعة."
+        },
+        "date": "2025-03-27T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-03-05T16:00:00Z"
+  },
+  {
+    "id": "rental-021",
+    "title": {
+      "en": "Boulevard Duplex",
+      "ar": "دوبلكس قرب الجادة"
+    },
+    "address": {
+      "en": "Logan Square, Chicago, IL",
+      "ar": "لوغان سكوير، شيكاغو، إلينوي"
+    },
+    "type": "duplex",
+    "price": 2400,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.5,
+    "thumbnail": "https://images.pexels.com/photos/20604662/pexels-photo-20604662.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": false,
+    "description": {
+      "en": "Two-level rental with dining and living areas downstairs and both bedrooms upstairs.",
+      "ar": "وحدة للإيجار على مستويين، فيها صالتا الطعام والمعيشة في الأسفل وغرفتا النوم في الأعلى."
+    },
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "area": 108,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/20604662/pexels-photo-20604662.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7546221/pexels-photo-7546221.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "in-unit-laundry",
+      "storage",
+      "bike-storage"
+    ],
+    "agent": {
+      "id": "agent-chicago",
+      "name": "Maya Kattan",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 41.924,
+      "longitude": -87.708
+    },
+    "reviews": [
+      {
+        "id": "rental-021-review-1",
+        "reviewerName": "Robin Vega",
+        "rating": 4,
+        "comment": {
+          "en": "The upstairs bedrooms were quiet when guests stayed late.",
+          "ar": "بقيت غرفتا النوم في الأعلى هادئتين عندما تأخر الضيوف."
+        },
+        "date": "2025-05-22T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-04-29T16:00:00Z"
+  },
+  {
+    "id": "rental-022",
+    "title": {
+      "en": "Eastside Staircase Duplex",
+      "ar": "دوبلكس بدرج داخلي في شرق أوستن"
+    },
+    "address": {
+      "en": "East Austin, Austin, TX",
+      "ar": "شرق أوستن، أوستن، تكساس"
+    },
+    "type": "duplex",
+    "price": 2750,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.6,
+    "thumbnail": "https://images.pexels.com/photos/6587864/pexels-photo-6587864.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": false,
+    "description": {
+      "en": "Three-bedroom rental arranged across two floors with an internal staircase and a downstairs guest bath.",
+      "ar": "وحدة للإيجار بثلاث غرف نوم موزعة على طابقين يربطهما درج داخلي، مع حمام للضيوف في الأسفل."
+    },
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "area": 137,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/6587864/pexels-photo-6587864.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7535074/pexels-photo-7535074.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "patio",
+      "air-conditioning",
+      "in-unit-laundry"
+    ],
+    "agent": {
+      "id": "agent-austin",
+      "name": "Jonah Reyes",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 30.263,
+      "longitude": -97.722
+    },
+    "reviews": [
+      {
+        "id": "rental-022-review-1",
+        "reviewerName": "Drew Diaz",
+        "rating": 5,
+        "comment": {
+          "en": "Having a second bathroom downstairs was convenient.",
+          "ar": "كان وجود حمام ثانٍ في الطابق السفلي مريحاً."
+        },
+        "date": "2025-07-17T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-06-23T16:00:00Z"
+  },
+  {
+    "id": "rental-023",
+    "title": {
+      "en": "Baker Loft Duplex",
+      "ar": "دوبلكس بطابع علّية في بيكر"
+    },
+    "address": {
+      "en": "Baker, Denver, CO",
+      "ar": "بيكر، دنفر، كولورادو"
+    },
+    "type": "duplex",
+    "price": 2280,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.3,
+    "thumbnail": "https://images.pexels.com/photos/36676788/pexels-photo-36676788.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": false,
+    "description": {
+      "en": "Split-level two-bedroom rental with an upper landing that overlooks the living area.",
+      "ar": "وحدة للإيجار بغرفتي نوم على مستويين، مع بسطة علوية تطل على صالة المعيشة."
+    },
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "area": 101,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/36676788/pexels-photo-36676788.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7546221/pexels-photo-7546221.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "storage",
+      "air-conditioning",
+      "pet-friendly"
+    ],
+    "agent": {
+      "id": "agent-denver",
+      "name": "Leila Haddad",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 39.718,
+      "longitude": -104.992
+    },
+    "reviews": [
+      {
+        "id": "rental-023-review-1",
+        "reviewerName": "Jamie Ford",
+        "rating": 4,
+        "comment": {
+          "en": "The upper landing made a useful reading corner.",
+          "ar": "كانت البسطة العلوية مناسبة كركن للقراءة."
+        },
+        "date": "2025-04-19T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-03-25T16:00:00Z"
+  },
+  {
+    "id": "rental-024",
+    "title": {
+      "en": "Two-Level Buckman Duplex",
+      "ar": "دوبلكس من طابقين في باكمان"
+    },
+    "address": {
+      "en": "Buckman, Portland, OR",
+      "ar": "باكمان، بورتلاند، أوريغون"
+    },
+    "type": "duplex",
+    "price": 3075,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.7,
+    "thumbnail": "https://images.pexels.com/photos/36676788/pexels-photo-36676788.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": true,
+    "description": {
+      "en": "Four-bedroom rental spanning two floors with a separate entrance and a compact ground-floor patio.",
+      "ar": "وحدة للإيجار بأربع غرف نوم موزعة على طابقين، بمدخل مستقل وفناء صغير في الطابق الأرضي."
+    },
+    "bedrooms": 4,
+    "bathrooms": 3,
+    "area": 158,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/36676788/pexels-photo-36676788.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7535074/pexels-photo-7535074.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "patio",
+      "in-unit-laundry",
+      "bike-storage"
+    ],
+    "agent": {
+      "id": "agent-portland",
+      "name": "Ellis Morgan",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 45.517,
+      "longitude": -122.651
+    },
+    "reviews": [
+      {
+        "id": "rental-024-review-1",
+        "reviewerName": "Kiran Patel",
+        "rating": 5,
+        "comment": {
+          "en": "The two floors gave everyone a little more space.",
+          "ar": "وفّر الطابقان مساحة إضافية لكل فرد."
+        },
+        "date": "2025-06-14T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-05-19T16:00:00Z"
+  },
+  {
+    "id": "rental-025",
+    "title": {
+      "en": "Uptown Stairwell Duplex",
+      "ar": "دوبلكس بدرج داخلي في أبتاون"
+    },
+    "address": {
+      "en": "Uptown, Minneapolis, MN",
+      "ar": "أبتاون، مينيابوليس، مينيسوتا"
+    },
+    "type": "duplex",
+    "price": 2310,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.4,
+    "thumbnail": "https://images.pexels.com/photos/6587864/pexels-photo-6587864.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": false,
+    "description": {
+      "en": "Two-level rental with a living room on the lower floor and three bedrooms above it.",
+      "ar": "وحدة للإيجار على مستويين، فيها غرفة معيشة في الطابق السفلي وثلاث غرف نوم فوقها."
+    },
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "area": 122,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/6587864/pexels-photo-6587864.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7546221/pexels-photo-7546221.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "covered-parking",
+      "in-unit-laundry",
+      "storage"
+    ],
+    "agent": {
+      "id": "agent-minneapolis",
+      "name": "Samira Nasser",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 44.948,
+      "longitude": -93.298
+    },
+    "reviews": [
+      {
+        "id": "rental-025-review-1",
+        "reviewerName": "Taylor James",
+        "rating": 4,
+        "comment": {
+          "en": "The upper floor stayed warm through the winter.",
+          "ar": "ظل الطابق العلوي دافئاً طوال الشتاء."
+        },
+        "date": "2025-03-11T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-02-18T16:00:00Z"
+  },
+  {
+    "id": "rental-026",
+    "title": {
+      "en": "Lakefront Studio",
+      "ar": "استوديو قرب البحيرة"
+    },
+    "address": {
+      "en": "Uptown, Chicago, IL",
+      "ar": "أبتاون، شيكاغو، إلينوي"
+    },
+    "type": "studio",
+    "price": 1325,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.3,
+    "thumbnail": "https://images.pexels.com/photos/7512042/pexels-photo-7512042.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": false,
+    "description": {
+      "en": "Open-plan studio with a sleeping alcove, built-in shelving, and a compact kitchenette.",
+      "ar": "استوديو بتصميم مفتوح مع ركن للنوم ورفوف مدمجة ومطبخ صغير."
+    },
+    "bedrooms": 0,
+    "bathrooms": 1,
+    "area": 34,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/7512042/pexels-photo-7512042.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/34989785/pexels-photo-34989785.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "bike-storage",
+      "shared-laundry"
+    ],
+    "agent": {
+      "id": "agent-chicago",
+      "name": "Maya Kattan",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 41.966,
+      "longitude": -87.657
+    },
+    "reviews": [
+      {
+        "id": "rental-026-review-1",
+        "reviewerName": "Noor Faris",
+        "rating": 4,
+        "comment": {
+          "en": "The shelves made it easier to keep a small space tidy.",
+          "ar": "ساعدت الرفوف على ترتيب المساحة الصغيرة."
+        },
+        "date": "2025-05-06T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-04-14T16:00:00Z"
+  },
+  {
+    "id": "rental-027",
+    "title": {
+      "en": "Hyde Park Garden Studio",
+      "ar": "استوديو أرضي في هايد بارك"
+    },
+    "address": {
+      "en": "Hyde Park, Austin, TX",
+      "ar": "هايد بارك، أوستن، تكساس"
+    },
+    "type": "studio",
+    "price": 1125,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.1,
+    "thumbnail": "https://images.pexels.com/photos/6238685/pexels-photo-6238685.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": false,
+    "description": {
+      "en": "Ground-floor studio with a garden-facing window, an induction hob, and a full bathroom.",
+      "ar": "استوديو في الطابق الأرضي بنافذة تطل على الحديقة وموقد حثي وحمام كامل."
+    },
+    "bedrooms": 0,
+    "bathrooms": 1,
+    "area": 32,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/6238685/pexels-photo-6238685.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/34989785/pexels-photo-34989785.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "air-conditioning",
+      "shared-laundry"
+    ],
+    "agent": {
+      "id": "agent-austin",
+      "name": "Jonah Reyes",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 30.306,
+      "longitude": -97.726
+    },
+    "reviews": [
+      {
+        "id": "rental-027-review-1",
+        "reviewerName": "Reese Elliott",
+        "rating": 4,
+        "comment": {
+          "en": "The garden window made the space feel less enclosed.",
+          "ar": "جعلت النافذة المطلة على الحديقة المكان يبدو أكثر انفتاحاً."
+        },
+        "date": "2025-07-01T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-06-08T16:00:00Z"
+  },
+  {
+    "id": "rental-028",
+    "title": {
+      "en": "Transit Studio",
+      "ar": "استوديو قرب المواصلات"
+    },
+    "address": {
+      "en": "Five Points, Denver, CO",
+      "ar": "فايف بوينتس، دنفر، كولورادو"
+    },
+    "type": "studio",
+    "price": 1190,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.2,
+    "thumbnail": "https://images.pexels.com/photos/34989785/pexels-photo-34989785.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": false,
+    "description": {
+      "en": "Furnished studio with a fold-down desk, a galley kitchenette, and secure access.",
+      "ar": "استوديو مفروش بمكتب قابل للطي ومطبخ صغير ضيق ومدخل آمن."
+    },
+    "bedrooms": 0,
+    "bathrooms": 1,
+    "area": 29,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/34989785/pexels-photo-34989785.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/6238685/pexels-photo-6238685.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "furnished",
+      "bike-storage",
+      "secure-entry"
+    ],
+    "agent": {
+      "id": "agent-denver",
+      "name": "Leila Haddad",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 39.755,
+      "longitude": -104.978
+    },
+    "reviews": [],
+    "createdAt": "2025-03-10T16:00:00Z"
+  },
+  {
+    "id": "rental-029",
+    "title": {
+      "en": "Alberta Arts Studio",
+      "ar": "استوديو قرب حي ألبرتا للفنون"
+    },
+    "address": {
+      "en": "King, Portland, OR",
+      "ar": "كينغ، بورتلاند، أوريغون"
+    },
+    "type": "studio",
+    "price": 1365,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.5,
+    "thumbnail": "https://images.pexels.com/photos/7512042/pexels-photo-7512042.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": true,
+    "description": {
+      "en": "Open-plan rental with room for a small dining table and a large window facing the courtyard.",
+      "ar": "استوديو للإيجار بتصميم مفتوح، فيه مساحة لطاولة طعام صغيرة ونافذة واسعة تطل على الفناء."
+    },
+    "bedrooms": 0,
+    "bathrooms": 1,
+    "area": 41,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/7512042/pexels-photo-7512042.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7546221/pexels-photo-7546221.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "in-unit-laundry",
+      "bike-storage",
+      "pet-friendly"
+    ],
+    "agent": {
+      "id": "agent-portland",
+      "name": "Ellis Morgan",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 45.558,
+      "longitude": -122.663
+    },
+    "reviews": [
+      {
+        "id": "rental-029-review-1",
+        "reviewerName": "Avery Lane",
+        "rating": 4,
+        "comment": {
+          "en": "The courtyard window brought in plenty of light.",
+          "ar": "أدخلت النافذة المطلة على الفناء الكثير من الضوء."
+        },
+        "date": "2025-05-29T16:00:00Z"
+      }
+    ],
+    "createdAt": "2025-05-04T16:00:00Z"
+  },
+  {
+    "id": "rental-030",
+    "title": {
+      "en": "Whittier Compact Studio",
+      "ar": "استوديو صغير في ويتيير"
+    },
+    "address": {
+      "en": "Whittier, Minneapolis, MN",
+      "ar": "ويتيير، مينيابوليس، مينيسوتا"
+    },
+    "type": "studio",
+    "price": 975,
+    "currency": "USD",
+    "pricingPeriod": "month",
+    "rating": 4.0,
+    "thumbnail": "https://images.pexels.com/photos/6238685/pexels-photo-6238685.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "isFeatured": false,
+    "description": {
+      "en": "Compact studio with a kitchenette, built-in wardrobe, and laundry down the hall.",
+      "ar": "استوديو صغير بمطبخ صغير وخزانة ملابس مدمجة وغرفة غسيل في نهاية الممر."
+    },
+    "bedrooms": 0,
+    "bathrooms": 1,
+    "area": 26,
+    "areaUnit": "sqm",
+    "images": [
+      "https://images.pexels.com/photos/6238685/pexels-photo-6238685.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://images.pexels.com/photos/7546221/pexels-photo-7546221.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    ],
+    "facilities": [
+      "shared-laundry",
+      "secure-entry"
+    ],
+    "agent": {
+      "id": "agent-minneapolis",
+      "name": "Samira Nasser",
+      "avatar": null
+    },
+    "location": {
+      "latitude": 44.96,
+      "longitude": -93.279
+    },
+    "reviews": [],
+    "createdAt": "2025-02-03T16:00:00Z"
+  }
+]
