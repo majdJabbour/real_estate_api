@@ -21,7 +21,7 @@ The primary deliverable is the Flutter recruitment assessment (suggested total 1
 | 6 | Firebase authentication | 5; confirmed scope | Conditional |
 | 7 | Firestore favorites | 6; confirmed scope | Conditional |
 | 7.1 | Favorite IDs and client integration support | 7; approved extension | Required for favorite toggles |
-| 8 | Documentation and release | 5, plus approved extensions | Required |
+| 8 | Documentation and deployment readiness | 5, plus approved extensions | Required |
 | 9 | Flutter handoff | 8 | Required |
 
 ## Phase 0 — Tooling and baseline
@@ -103,13 +103,14 @@ Acceptance: no cross-user access; repeated mutations safe; authenticated respons
 
 Acceptance: deterministic mocked verification of empty and populated responses, sorting, uniqueness, owner isolation, errors and route compatibility. The credential-free production HTTP suite verifies a 401 for the new endpoint and keeps public-route regression coverage.
 
-## Phase 8 — Documentation and release
+## Phase 8 — Documentation and deployment readiness
 
 - Update README with install/run commands, architecture, assumptions, dataset migration, API examples, locale, test results, limitations, optional Firebase configuration and deployment. Keep API_CONTRACT aligned with approved behavior; mark omitted optional features accurately. Complete actual AI_USAGE entries and record developer changes/rejections only if they occurred.
-- Prepare Vercel project using confirmed supported Node version and pnpm lockfile. Verify plan terms for this assessment use and quotas before deployment. No automatic deployment; developer approves and configures account/environment variables. Do not expose credentials.
-- After deployment, repeat public HTTP smoke tests against actual HTTPS URL; verify protected routes only if configured. Record real base URL and results.
+- Replace the starter page with a static API reference and check it against the nine approved operations. Review tracked files and inspectable Git history for credentials without exposing their values.
+- Prepare repository configuration for Vercel with Next.js defaults, Node 24, pinned pnpm via Corepack, and Frankfurt functions (`fra1`). Document the manual deployment steps, plan eligibility and limits, and secret configuration.
+- Deploy only after separate developer approval. After deployment, check the public and unauthenticated protected routes at the live HTTPS URL. Verify authenticated behavior when a real Firebase ID token is available and record actual results.
 
-Acceptance: reproducible installation, verified build, documented actual deployment state, no secrets in Git diff. Do not claim deployment success without live checks.
+Acceptance: frozen install, peer check, lint, typecheck, unit tests, coverage, credential-free build and HTTP integration tests, and a clean whitespace check. The repository remains local until the developer approves deployment.
 
 ## Phase 9 — Flutter handoff
 

@@ -197,3 +197,27 @@ Listing read cost grows with a user's stored references. Mock tests cover orderi
 | `git diff --check` | Exit 0. |
 
 The projection limits returned fields. Firestore document reads still grow with the user's saved references. Authenticated success was covered by mocks. Live Google Sign-In, real ID-token verification, and authenticated Firestore persistence remain pending. The public property models, fixture, generated agent rules, dependency versions, and local credentials were preserved. The Aikido MCP scan was unavailable.
+
+## Phase 8 — Documentation and deployment readiness
+
+**Prompt summary.** The developer approved Phase 7.1 and requested a repository and Git history review, a static API information page, minimal Vercel configuration, finalized documentation, and local verification. Deployment requires separate approval.
+
+**Tools and work.** Codex reviewed the project guides, installed Next.js documentation, and official Vercel deployment guidance. Git and a Python script checked 144 objects reachable through local refs and reflogs for credential patterns and sensitive file paths. Findings were limited to match counts and file locations. No matches were found for the inspected patterns, and `.env.local` is ignored. The only tracked environment template is `.env.example`, which contains empty values. The review confirmed server-only Firebase Admin imports, private no-store protected responses, and the local deny-all Firestore client rules. Aikido was unavailable.
+
+**Decisions.** The landing page is a prerendered React Server Component using plain CSS and system fonts, with a labeled health-response example and all nine approved operations. The generated Next.js agent rules are byte-identical to the prior revision. The Vercel configuration sets only Frankfurt (`fra1`) for functions and uses standard Next.js build settings. The existing Node 24 engine and pnpm 12.6.0 pin are preserved. The README documents Vercel's Corepack setting, the developer-reported Belgium Firestore location, and deployment and verification steps. Endpoint implementations and contract behavior were preserved.
+
+**Verification.** Node.js 24.22.3 LTS and pnpm 12.6.0 were used.
+
+| Command or check | Result |
+| --- | --- |
+| `pnpm install --frozen-lockfile` | Exit 0. Lockfile policy checks passed without new resolution or lockfile changes. pnpm printed an informational update notice. |
+| `pnpm peers check` | Exit 0. No peer dependency issues. |
+| `pnpm lint`, `pnpm typecheck` | Exit 0. |
+| `pnpm test` | Exit 0. 254 tests across 13 files. The tooling test checks the landing page title, health link, and endpoint table. |
+| `pnpm test:coverage` | Exit 0. V8 reported 99.17% statements (361/364), 97.60% branches (204/209), 100% functions (126/126), and 99.40% lines (334/336) in the regular configured coverage scope. |
+| `pnpm build` | Exit 0 with Firebase settings blank. Next.js prerendered the landing page and built all API routes. |
+| `pnpm test:integration` | Exit 0. 34 production HTTP tests passed, including the new landing-page request. Public routes returned 200 with blank Firebase credentials. Unauthenticated protected operations returned 401 with a Bearer challenge and private no-store caching. The test server stopped. |
+| Endpoint and config comparison | All nine operations match the route exports, contract, engineering guide, README, and landing page. The existing literal-ID PUT and DELETE delegates are covered by integration tests. `vercel.json` parses and sets `fra1`. |
+| `git diff --check` | Exit 0. |
+
+The work stayed local. Vercel plan eligibility, build environment, service-account permissions, and effective cloud Firestore rules require verification during the approved release workflow. Live Google Sign-In, real Firebase ID-token verification, and authenticated Firestore persistence remain pending.

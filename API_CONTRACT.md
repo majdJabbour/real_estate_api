@@ -1,6 +1,6 @@
 # Real Estate API — Contract v1
 
-Status: proposed implementation baseline for the Flutter recruitment assessment.
+Status: implemented v1 contract for the Flutter recruitment assessment. Live deployment and authenticated cloud verification are pending.
 
 ## 1. Protocol and scope
 
@@ -10,10 +10,9 @@ Status: proposed implementation baseline for the Flutter recruitment assessment.
 - All search, filtering, sorting, counting, pagination and histogram aggregation take place on the server. The repository accepts queries, not a mandatory fetch-all interface.
 - Pricing convention for the proposed rental demo: USD per month; area in square meters (`sqm`). These are explicit demo assumptions, not real listing data.
 
-### Existing fixture migration (before implementation)
+### Demo property fixture
 
-The existing `properties.json` contains 30 records with EUR sale-scale prices (160000–748000), five types (`apartment`, `villa`, `house`, `townhouse`, `studio`), flat bilingual fields and no `createdAt`. It is not yet compatible with this contract.
-Create a separate normalized fixture with synthetic monthly USD rents (not a currency conversion), six supported categories, translated labels/descriptions consistent with the category, and explicit synthetic ISO timestamps. Rename `townhouse` to `townhome`; curate replacement records for `condo` and `duplex` rather than silently relabeling a villa. Preserve the original fixture. Validate unique IDs, URLs, numeric constraints and references. Images are illustrative; verify availability before delivery. Record these changes in README. Do not treat sample values as real property information.
+The API uses `src/data/properties.normalized.json`, a validated fixture with 30 fictional monthly USD rentals across the six supported categories. Entries include bilingual text and explicit UTC timestamps. Prices are synthetic, and image URLs are illustrative. The original EUR sale-price fixture referenced in the initial plan was absent from the checkout and available Git history.
 
 ## 2. Endpoints
 
@@ -217,4 +216,4 @@ Set `Content-Language` on localized successes and `Vary: Accept-Language` where 
 
 ## 13. Limitations and future migration
 
-The bundled JSON is a read-only mock; server-side filtering over it is not proof of production-scale performance. A future PostgreSQL repository can implement indexed filtering, count, pagination and aggregation without changing the public property contract. Offset pagination is adequate for the assessment; cursor pagination may be considered for large datasets. Firebase setup, actual image availability, hosting limits and end-to-end verification must be tested before delivery. Authentication and favorites remain conditional on the agreed assessment scope.
+The bundled JSON is a read-only mock. Filtering runs in memory and uses offset pagination. A future PostgreSQL repository can implement indexed filtering, counts, pagination, and aggregation within the public property contract. Firebase Authentication and favorites are implemented for this assessment. Live Google Sign-In, real ID-token verification, authenticated Firestore persistence, and Vercel deployment verification are pending.

@@ -1,6 +1,21 @@
 # Real Estate API
 
-This Next.js App Router project is the backend for a bilingual Flutter real estate assessment. [API_CONTRACT.md](API_CONTRACT.md) describes the REST API.
+Real Estate API is the REST backend for a bilingual Flutter mobile app built for a technical recruitment assessment. It serves fictional rentals with server-side search, filtering, sorting, and pagination. Firebase authenticates protected requests, and Firestore stores favorites per user. [API contract](API_CONTRACT.md)
+
+## Architecture
+
+Next.js App Router handlers validate requests with Zod, call application services, and map results to HTTP responses. Property services work through a repository interface. The current adapter queries the bundled JSON fixture, and localized response mapping exposes the card or detail fields defined in the contract. Firebase Admin initializes lazily for protected requests and uses the verified UID to scope Firestore access.
+
+The stack uses Next.js 16.4.6, TypeScript, Node.js 24, pnpm 12.6.0, Zod, Firebase Admin, Cloud Firestore, Vitest, and ESLint. Vercel is the deployment target.
+
+| Location | Responsibility |
+| --- | --- |
+| `src/app/` | Static API information page and versioned route handlers |
+| `src/features/` | Property, authentication, and favorites logic and adapters |
+| `src/core/` | Shared request, response, error, pagination, and Firebase utilities |
+| `src/data/` | Bundled property fixture |
+| `tests/` | Unit, route-handler, and production HTTP tests |
+| `firestore.rules` | Local deny-all client rules |
 
 ## Local development
 
@@ -12,18 +27,23 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-The starter page is available at [localhost:3000](http://localhost:3000).
+The API information page is available at [localhost:3000](http://localhost:3000).
 
-## Public API
+## API reference
 
 The local base URL is [http://localhost:3000/api/v1](http://localhost:3000/api/v1).
 
-| Request | Response |
-| --- | --- |
-| `GET /health` | Liveness response with `status: "ok"` in `data`. |
-| `GET /properties` | Property summaries and pagination. Defaults to page 1, 20 listings, newest first. |
-| `GET /properties/:id` | Full details for the property ID. |
-| `GET /properties/filter-options` | Global filter bounds, price histogram, and localized type labels. |
+| Request | Access | Response |
+| --- | --- | --- |
+| `GET /health` | Public | Liveness response with `status: "ok"` in `data`. |
+| `GET /properties` | Public | Property summaries and pagination. Defaults to page 1, 20 listings, newest first. |
+| `GET /properties/:id` | Public | Full details for the property ID. |
+| `GET /properties/filter-options` | Public | Global filter bounds, price histogram, and localized type labels. |
+| `GET /auth/me` | Firebase ID token | Verified user profile. |
+| `GET /favorites` | Firebase ID token | Paginated favorite property summaries. |
+| `GET /favorites/ids` | Firebase ID token | Sorted favorite property IDs. |
+| `PUT /favorites/:propertyId` | Firebase ID token | Adds a favorite idempotently. |
+| `DELETE /favorites/:propertyId` | Firebase ID token | Removes a favorite idempotently. |
 
 ```sh
 curl -i 'http://localhost:3000/api/v1/health'
@@ -34,7 +54,7 @@ curl -i -H 'Accept-Language: en' 'http://localhost:3000/api/v1/properties/filter
 curl -i -H 'Accept-Language: ar' 'http://localhost:3000/api/v1/properties/filter-options'
 ```
 
-The property routes choose the supported language with the highest positive quality weight. Equal weights use header order. Regional tags match by primary language, and malformed preferences are skipped. English is the fallback when no named preference qualifies. Localized successes include `Content-Language` and `Vary: Accept-Language`. All API responses use `Cache-Control: no-store`.
+The property routes choose the supported language with the highest positive quality weight. Equal weights use header order. Regional tags match by primary language, and malformed preferences are skipped. English is the fallback when no named preference qualifies. Localized successes include `Content-Language` and `Vary: Accept-Language`. Public handler responses use `Cache-Control: no-store`. Protected handler responses use `Cache-Control: private, no-store`.
 
 Invalid listing queries and malformed IDs return `400 VALIDATION_ERROR`. A syntactically valid ID that has no match returns `404 PROPERTY_NOT_FOUND`. IDs use URL-unreserved characters, have a maximum length of 128, and exclude the standalone dot segments `.` and `..`. Unmatched routes and requests rejected before reaching the handler use Next.js responses.
 
@@ -101,7 +121,46 @@ pnpm test:integration
 
 Run `pnpm build` before `pnpm test:integration` and rebuild after changing application code. The integration suite starts `next start` on an OS-assigned loopback port, waits for a successful health response, and stops its child process after the run. It requires local socket access and runs without Firebase credentials or external services. Use `pnpm start` to serve the production build manually.
 
-The Node.js range in `package.json` selects the Node 24 runtime for a future Vercel deployment. [Vercel Node.js versions](https://vercel.com/docs/functions/runtimes/node-js/node-js-versions)
+## Manual Vercel deployment
+
+The target uses standard Next.js build settings, Node.js 24.x, pinned pnpm 12.6.0, and Frankfurt functions (`fra1`). The existing default Firestore database is in Belgium (`europe-west1`). Review Vercel plan eligibility and quotas before creating a deployment. Hobby is restricted to personal, non-commercial use. Confirm the assessment qualifies or choose an appropriate plan, and review Firestore quotas for the expected traffic. [Vercel fair use](https://vercel.com/docs/limits/fair-use-guidelines) · [Vercel limits](https://vercel.com/docs/limits) · [Firestore quotas](https://firebase.google.com/docs/firestore/quotas)
+
+1. After developer approval, review the changes and commit the reviewed project files. Keep credentials outside Git.
+2. Create or connect a GitHub repository and push the reviewed branch.
+3. Import that repository in Vercel and select the backend project directory. Complete the configuration below before deploying.
+4. Select the **Next.js** framework preset and keep the standard build, install, and output settings. Set `ENABLE_EXPERIMENTAL_COREPACK=1` for the intended environment so Vercel honors `packageManager: pnpm@12.6.0`. Vercel's documented lockfile-based detection lists pnpm versions through 10. [Vercel package managers](https://vercel.com/docs/package-managers) · [Vercel Corepack setup](https://vercel.com/docs/builds/configure-a-build#corepack)
+5. Confirm the project runtime is **Node.js 24.x**, matching `engines.node` and `.nvmrc`. [Vercel Node.js versions](https://vercel.com/docs/functions/runtimes/node-js/node-js-versions)
+6. Confirm the function region is **Frankfurt (`fra1`)**. [vercel.json](vercel.json) sets it for the project. Confirm the selected Firebase project points to the existing Belgium database. [Vercel project configuration](https://vercel.com/docs/project-configuration/vercel-json) · [Vercel regions](https://vercel.com/docs/regions)
+7. Add `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, and `FIREBASE_PRIVATE_KEY` as sensitive server environment variables for the intended deployment environment. Verify the Admin service account's Auth and Firestore IAM access. Review the effective cloud Firestore rules separately to confirm they deny direct client access. The repository rules file requires its own release step. [Vercel sensitive variables](https://vercel.com/docs/environment-variables/sensitive-environment-variables) · [Firestore IAM](https://firebase.google.com/docs/firestore/security/iam)
+8. Deploy the reviewed branch. Check build logs for Node.js 24 and pnpm 12.6.0 and record the HTTPS URL. Deploy again after changing environment variables so the new deployment receives them. [Vercel environment variables](https://vercel.com/docs/environment-variables/managing-environment-variables)
+9. Open the landing page and verify all four public endpoints at the deployment URL. Check one Arabic property response.
+10. Verify all five protected operations without credentials. Each should return HTTP 401, a Bearer challenge, and `Cache-Control: private, no-store`.
+11. Once a real Firebase ID token is available from Flutter Google Sign-In, verify the profile, favorite list and IDs, repeated PUT, repeated DELETE, and persistence across requests. Use a designated test account and record the results without the token.
+
+For steps 9 and 10, replace the example URL with the deployment origin. Expect HTTP 200 for the first loop and HTTP 401 for the protected calls.
+
+```sh
+origin='https://your-project.vercel.app'
+for path in / /api/v1/health /api/v1/properties /api/v1/properties/rental-001 /api/v1/properties/filter-options; do
+  curl -i "$origin$path"
+done
+curl -i -H 'Accept-Language: ar' "$origin/api/v1/properties/rental-001"
+
+for path in auth/me favorites favorites/ids; do
+  curl -i "$origin/api/v1/$path"
+done
+for method in PUT DELETE; do
+  curl -i -X "$method" "$origin/api/v1/favorites/rental-001"
+done
+```
+
+## Known limitations and verification status
+
+- Property data comes from a JSON fixture. Server-side queries run in memory and use offset pagination. The documented checks cover the assessment dataset.
+- Property image URLs depend on the external Pexels CDN and the client that renders them.
+- Firestore work grows with a user's saved references for both listing favorites and retrieving all favorite IDs.
+- Local credential-free production HTTP tests cover the public API and unauthenticated protected requests. Mocks cover authenticated application behavior. Live Google Sign-In, real Firebase ID-token verification, and authenticated Firestore persistence remain pending.
+- Vercel deployment and effective cloud Firestore rules remain unverified. The Aikido security scan was unavailable.
 
 ## Demo property dataset
 

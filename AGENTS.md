@@ -141,6 +141,8 @@ Expected structure:
                 route.ts
             favorites/
               route.ts
+              ids/
+                route.ts
               [propertyId]/
                 route.ts
             health/
@@ -161,7 +163,7 @@ Expected structure:
         firebase/
 
       data/
-        properties.json
+        properties.normalized.json
 
     tests/
     AGENTS.md
@@ -169,7 +171,7 @@ Expected structure:
     AI_USAGE.md
     README.md
     .env.example
-    vitest.config.ts
+    vitest.config.mts
 
 Create directories only when they are needed.
 
@@ -231,6 +233,7 @@ Required endpoints:
     GET    /api/v1/properties/filter-options
     GET    /api/v1/auth/me
     GET    /api/v1/favorites
+    GET    /api/v1/favorites/ids
     PUT    /api/v1/favorites/:propertyId
     DELETE /api/v1/favorites/:propertyId
 

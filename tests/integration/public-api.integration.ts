@@ -60,6 +60,19 @@ const detailFields = [
 const sample = fixture.find(({ id }) => id === "rental-001");
 if (!sample) throw new Error("The HTTP search scenarios require rental-001.");
 
+it("serves the API information page from the production build", async () => {
+  const response = await fetch(inject("publicApiOrigin"), { signal: AbortSignal.timeout(5_000) });
+  expect(response.status).toBe(200);
+  expect(response.headers.get("Content-Type")).toMatch(/^text\/html\b/i);
+  const html = await response.text();
+  expect(html).toContain("<title>Real Estate API</title>");
+  expect(html).toContain('href="/api/v1/health"');
+  expect(html).toContain("/api/v1/favorites/ids");
+  expect(html).toContain("Firebase ID token");
+  expect(html).toContain("Accept-Language: ar");
+  expect(html).not.toContain("Create Next App");
+});
+
 function request(path: string, language?: string, method = "GET") {
   return fetch(`${inject("publicApiOrigin")}/api/v1${path}`, {
     method,
