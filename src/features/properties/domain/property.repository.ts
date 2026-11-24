@@ -15,9 +15,15 @@ export type PropertyBounds = {
   readonly max: number | null;
 };
 
+export type PriceHistogramBucket = {
+  readonly from: number;
+  readonly to: number;
+  readonly count: number;
+};
+
 export type PropertyFilterAggregation = {
   readonly types: readonly PropertyType[];
-  readonly price: PropertyBounds;
+  readonly price: PropertyBounds & { readonly histogram: readonly PriceHistogramBucket[] };
   readonly area: PropertyBounds;
   readonly bedrooms: PropertyBounds;
   readonly bathrooms: PropertyBounds;

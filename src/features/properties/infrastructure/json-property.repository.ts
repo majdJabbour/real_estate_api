@@ -15,6 +15,7 @@ import {
   propertyTypeSchema,
   type ReadonlyProperty,
 } from "@/features/properties/domain/property.schema";
+import { buildPriceHistogram } from "@/features/properties/infrastructure/price-histogram";
 
 function freezeRecord(value: unknown): void {
   if (value !== null && typeof value === "object") {
@@ -41,7 +42,9 @@ function prepareDataset(source: unknown) {
         .replace(/\.$/, ""),
     };
   });
-  return { byId, indexed };
+  const filterAggregation = aggregateDatasetFilters(properties);
+  freezeRecord(filterAggregation);
+  return { byId, indexed, filterAggregation };
 }
 
 const bundledDataset = prepareDataset(fixture);
@@ -75,6 +78,21 @@ function getBounds(
     max = Math.max(max ?? value, value);
   }
   return { min, max };
+}
+
+function aggregateDatasetFilters(properties: readonly ReadonlyProperty[]): PropertyFilterAggregation {
+  const availableTypes = new Set(properties.map(({ type }) => type));
+  const priceBounds = getBounds(properties, "price");
+  return {
+    types: propertyTypeSchema.options.filter((type) => availableTypes.has(type)),
+    price: {
+      ...priceBounds,
+      histogram: buildPriceHistogram(properties.map(({ price }) => price), priceBounds),
+    },
+    area: getBounds(properties, "area"),
+    bedrooms: getBounds(properties, "bedrooms"),
+    bathrooms: getBounds(properties, "bathrooms"),
+  };
 }
 
 export class JsonPropertyRepository implements PropertyRepository {
@@ -113,14 +131,6 @@ export class JsonPropertyRepository implements PropertyRepository {
   }
 
   async aggregateFilters(): Promise<PropertyFilterAggregation> {
-    const { byId } = this.dataset;
-    const availableTypes = new Set(Array.from(byId.values(), ({ type }) => type));
-    return {
-      types: propertyTypeSchema.options.filter((type) => availableTypes.has(type)),
-      price: getBounds(byId.values(), "price"),
-      area: getBounds(byId.values(), "area"),
-      bedrooms: getBounds(byId.values(), "bedrooms"),
-      bathrooms: getBounds(byId.values(), "bathrooms"),
-    };
+    return this.dataset.filterAggregation;
   }
 }

@@ -167,7 +167,7 @@ describe("JSON property repository integrity", () => {
     await repository.list(parse("featured=true&limit=1"));
     await expect(repository.aggregateFilters()).resolves.toEqual({
       types: ["apartment", "house", "condo", "studio"],
-      price: { min: 800, max: 1800 },
+      price: { min: 800, max: 1800, histogram: expect.any(Array) },
       area: { min: 31, max: 90 },
       bedrooms: { min: 0, max: 3 },
       bathrooms: { min: 0, max: 2 },
@@ -177,10 +177,26 @@ describe("JSON property repository integrity", () => {
   it("aggregates null bounds for an empty dataset", async () => {
     await expect(new JsonPropertyRepository([]).aggregateFilters()).resolves.toEqual({
       types: [],
-      price: { min: null, max: null },
+      price: { min: null, max: null, histogram: [] },
       area: { min: null, max: null },
       bedrooms: { min: null, max: null },
       bathrooms: { min: null, max: null },
     });
+  });
+
+  it("reuses a frozen aggregation without changing the source records", async () => {
+    const source = structuredClone([bravo, alpha]);
+    const original = structuredClone(source);
+    const injected = new JsonPropertyRepository(source);
+    const filters = await injected.aggregateFilters();
+
+    expect(source).toEqual(original);
+    expect(Object.isFrozen(source[0])).toBe(false);
+    expect(Reflect.set(filters.area, "min", 1)).toBe(false);
+    expect(Reflect.set(filters.types, "0", "studio")).toBe(false);
+    expect(Reflect.set(filters.price.histogram, "0", null)).toBe(false);
+    expect(Reflect.set(filters.price.histogram[0], "count", 999)).toBe(false);
+    expect(await injected.aggregateFilters()).toBe(filters);
+    expect(filters.price.histogram.reduce((total, bucket) => total + bucket.count, 0)).toBe(2);
   });
 });

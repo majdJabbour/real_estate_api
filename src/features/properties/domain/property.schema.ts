@@ -13,6 +13,10 @@ export const propertyTypeSchema = z.enum([
 ]);
 export type PropertyType = z.infer<typeof propertyTypeSchema>;
 
+export const PROPERTY_CURRENCY = "USD";
+export const PROPERTY_PRICING_PERIOD = "month";
+export const PROPERTY_AREA_UNIT = "sqm";
+
 const textSchema = z.string().trim().min(1);
 const idSchema = z.string().min(1).regex(/^\S+$/);
 const imageUrlSchema = z
@@ -54,8 +58,8 @@ export const propertySummarySchema = z.strictObject({
   address: textSchema,
   type: propertyTypeSchema,
   price: z.number().positive(),
-  currency: z.literal("USD"),
-  pricingPeriod: z.literal("month"),
+  currency: z.literal(PROPERTY_CURRENCY),
+  pricingPeriod: z.literal(PROPERTY_PRICING_PERIOD),
   rating: ratingSchema,
   thumbnail: imageUrlSchema,
   isFeatured: z.boolean(),
@@ -67,7 +71,7 @@ export const propertyDetailsSchema = propertySummarySchema.extend({
   bedrooms: roomCountSchema,
   bathrooms: roomCountSchema,
   area: z.number().positive(),
-  areaUnit: z.literal("sqm"),
+  areaUnit: z.literal(PROPERTY_AREA_UNIT),
   images: z.array(imageUrlSchema),
   facilities: z.array(z.string().regex(/^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/)),
   agent: agentSchema,

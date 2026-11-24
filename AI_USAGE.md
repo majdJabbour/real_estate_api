@@ -87,3 +87,25 @@ Checksums confirmed the generated agent rules, API contract, implementation plan
 | `git diff --check` | Exit 0. |
 
 The API contract, implementation plan, generated agent rules, dependencies, and normalized fixture were preserved. The Aikido MCP scan was unavailable. No Phase 3 developer review or rejection had occurred when this entry was written.
+
+## Phase 4 — Filter options and histogram
+
+**Prompt summary.** After the developer approved Phase 3 and reported successful manual API testing, implement the public filter-options endpoint, repository aggregation, localized labels, and contract-defined histogram. Verify the new static route and existing public routes over HTTP.
+
+**Tools and work.** Codex used the shell, Git, and pnpm to inspect the existing implementation and installed Next.js Route Handler docs, author the route and aggregate, and run local checks. It independently counted fixture prices against the expected edges before comparing the results with the API. Node fetch verified the built Next.js server over loopback with a clean process environment.
+
+**Decisions.** The JSON repository computes and deep-freezes global bounds, present types in enum order, and the price histogram when it prepares a dataset. The service reads that aggregate through the repository contract and maps labels with the existing locale resolver and response helpers. The response uses pricing and area constants shared with property validation. Histogram interpolation uses decimal integer arithmetic for 20 equal-width buckets. Comparisons use the serialized numeric edges, with the final upper edge inclusive. Adjacent edges can coincide when numeric precision is insufficient. Interior zero-width buckets are empty, and the final bucket still includes the maximum. Empty datasets return null bounds and empty lists. Equal prices use a single bucket.
+
+**Verification.** Node.js 24.22.3 LTS, pnpm 12.6.0, and Vitest 5.1.1 were used. The fixture returned USD 975–4,250 per month, 26–238 sqm, 0–5 bedrooms, and 1–4 bathrooms. The histogram contained 20 buckets and counted all 30 listings.
+
+| Command | Result |
+| --- | --- |
+| `pnpm lint` | Exit 0. |
+| `pnpm typecheck` | Exit 0. Generated route types and TypeScript passed. |
+| `pnpm test` | Exit 0. Nine files and 188 tests passed, including 13 added tests. |
+| `pnpm test:coverage` | Exit 0. V8 reported 100% statements (213/213), branches (122/122), functions (66/66), and lines (202/202) across 17 instrumented source files. |
+| `pnpm build` | Exit 0. Listed the static-segment filter-options route alongside `[id]`. |
+| Local production HTTP smoke | Exit 0. English and Arabic filter options returned 200 with locale, Vary, and no-store headers. A filter-options query returned 400. Health, listing, and a valid property ID returned 200. An unknown property ID returned 404. The server was terminated after the checks. |
+| `git diff --check` | Exit 0. |
+
+The generated agent rules, API contract, plan, dependencies, and normalized fixture were preserved. The Aikido MCP scanner was unavailable. No Phase 4 developer review or rejection had occurred when this entry was written.
