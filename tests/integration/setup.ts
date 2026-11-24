@@ -29,6 +29,11 @@ export default async function setup(project: TestProject) {
       PATH: process.env.PATH,
       NEXT_TELEMETRY_DISABLED: "1",
       FORCE_COLOR: "0",
+      // Empty entries also shadow local dotenv files loaded by Next.js.
+      FIREBASE_PROJECT_ID: "",
+      FIREBASE_CLIENT_EMAIL: "",
+      FIREBASE_PRIVATE_KEY: "",
+      FIREBASE_AUTH_EMULATOR_HOST: "",
     },
     stdio: ["ignore", "pipe", "pipe"],
   });

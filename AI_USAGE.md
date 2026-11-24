@@ -132,3 +132,28 @@ The generated agent rules, API contract, plan, dependencies, and normalized fixt
 | `git diff --check` | Exit 0. |
 
 The initial tooling check exposed a missing typed `NODE_ENV` field in the child environment and an unused startup event variable. Codex corrected both in the new setup. The HTTP suite found no application regression that required a fix. The generated agent rules, contract, normalized dataset, lockfile, and application source were preserved. The Aikido MCP scan was unavailable. No Phase 5 developer review or rejection had occurred when this entry was written.
+
+## Phase 6 — Firebase Authentication
+
+**Prompt summary.** After the developer approved Phase 5, implement lazy Firebase Admin Auth, an injectable bearer-token guard, and the protected profile endpoint. Verify response contracts and public access without credentials while keeping the local service account configuration confidential.
+
+**Tools and work.** Codex reviewed the repository guidelines, installed Next.js and Firebase Admin sources, and Firebase documentation. It used Git, pnpm, Vitest, and loopback HTTP requests to verify the implementation. It confirmed `.env.local` is ignored and verified configuration using field-level presence and format checks. Credential values were not printed or written to the tracked tree.
+
+**Decisions.** The server-only Node adapter validates and normalizes service-account settings on first protected use. It uses a named app and reuses it only when the project and credential are compatible. The guard verifies one Firebase ID token per request through an injectable verifier and returns only the UID and optional profile claims. Since the contract leaves revocation policy unspecified, this implementation enables revocation and disabled-account checks. The API maps credential rejection to 401 and unavailability to 503. Protected responses use `private, no-store`. SDK emulator mode is rejected in this production verification path.
+
+**Findings.** The local production smoke test found that the supplied `FIREBASE_CLIENT_EMAIL` fails email format validation. The local configuration was left untouched. A direct diagnostic also found that the installed SDK uses `auth/argument-error` for malformed Firebase tokens. The verifier now recognizes that code with the SDK's token-rejection diagnostics. Signing-key fetch errors with the same code remain 503. Both paths have regression tests.
+
+**Verification.** Node.js 24.22.3 LTS, pnpm 12.6.0, and Vitest 5.1.1 were used. The Next.js loader was checked to confirm empty Firebase settings shadowed local dotenv values for the production build and integration run.
+
+| Command or check | Result |
+| --- | --- |
+| `pnpm lint`, `pnpm typecheck` | Exit 0. |
+| `pnpm test` | Exit 0. Eleven files and 224 tests passed, including 36 added tests. |
+| `pnpm test:coverage` | Exit 0. V8 reported 100% statements (260/260), branches (162/162), functions (79/79), and lines (244/244) across 23 instrumented source files. |
+| `pnpm build` with Firebase settings blank | Exit 0. The build listed the auth endpoint and all four public routes. |
+| `pnpm test:integration` | Exit 0. All 27 HTTP tests passed with Firebase settings blank. |
+| Local settings HTTP smoke | All four public routes returned 200. Missing and malformed bearer credentials returned 401. A JWT-shaped invalid token reached configuration validation and returned 503. |
+| Synthetic settings HTTP smoke | The real Admin SDK initialized with an in-memory test key and rejected the invalid token with 401 on two consecutive requests. Missing credentials also returned 401. No real Firebase user or token was involved. |
+| `git diff --check` | Exit 0. |
+
+All spawned servers were stopped. Successful live sign-in and verification with a real Firebase ID token remain pending. The API contract, generated Next.js agent rules, dependency versions, and dataset were preserved. The Aikido MCP scan was unavailable.

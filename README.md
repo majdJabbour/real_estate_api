@@ -38,6 +38,25 @@ The property routes choose the supported language with the highest positive qual
 
 Invalid listing queries and malformed IDs return `400 VALIDATION_ERROR`. A syntactically valid ID that has no match returns `404 PROPERTY_NOT_FOUND`. IDs use URL-unreserved characters, have a maximum length of 128, and exclude the standalone dot segments `.` and `..`. Unmatched routes and requests rejected before reaching the handler use Next.js responses.
 
+## Firebase Authentication
+
+Use a Firebase project with Authentication enabled and Google enabled under **Authentication → Sign-in method**. Register the Flutter client with the same project and complete the platform-specific Google OAuth configuration. The backend needs a service account with access to read users for its revocation check. [Flutter Google Sign-In setup](https://firebase.google.com/docs/auth/flutter/federated-auth#google) · [Firebase Admin SDK setup](https://firebase.google.com/docs/admin/setup)
+
+Use [.env.example](.env.example) as a template for the ignored `.env.local`. Set `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, and `FIREBASE_PRIVATE_KEY` from the service account. The private key can be a quoted multiline value or contain escaped `\n` sequences. Keep these values and the original service account file outside version control. Use server-only variable names and restart the API process after changing credentials.
+
+After Google sign-in, the Firebase client SDK returns a Firebase ID token for the signed-in user and handles refresh. To test the protected endpoint, use that token in the Authorization field of a local HTTP client and send the following request. Keep the token out of logs and shared command history. [Firebase ID tokens](https://firebase.google.com/docs/auth/admin/verify-id-tokens)
+
+```http
+GET /api/v1/auth/me
+Authorization: Bearer <firebase-id-token>
+```
+
+The local URL is `http://localhost:3000/api/v1/auth/me`. A successful response contains the verified `id`, `email`, `name`, and `avatar` in `data`. Optional profile fields can be null. Missing or invalid credentials return `401 UNAUTHORIZED`. Firebase configuration or verification infrastructure failures return `503 SERVICE_UNAVAILABLE`. All handler responses use `Cache-Control: private, no-store`.
+
+The API verifies project binding, signature, expiry, revocation, and account status with the Admin SDK. Revocation checking adds a Firebase backend lookup for otherwise valid tokens. For a future Vercel deployment, configure the same three variables as sensitive server environment variables for the intended deployment environment and use HTTPS. [Firebase session management](https://firebase.google.com/docs/auth/admin/manage-sessions) · [Vercel sensitive environment variables](https://vercel.com/docs/environment-variables/sensitive-environment-variables)
+
+Automated verification uses SDK mocks and credential-free HTTP tests. Successful live Google Sign-In and verification of a real Firebase ID token remain pending Flutter integration.
+
 ## Validation
 
 ```sh

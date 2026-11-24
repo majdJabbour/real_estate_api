@@ -292,6 +292,27 @@ it("distinguishes a framework-generated 405 from application JSON errors", async
   expect(await response.text()).toBe("");
 });
 
+it.each([
+  [undefined, 401, "UNAUTHORIZED"],
+  ["Bearer invalid", 401, "UNAUTHORIZED"],
+  ["Bearer fake.token.value", 503, "SERVICE_UNAVAILABLE"],
+] as const)("isolates the credential-free server from Firebase configuration (%s)", async (header, status, code) => {
+  const response = await fetch(`${inject("publicApiOrigin")}/api/v1/auth/me`, {
+    headers: header === undefined ? undefined : { Authorization: header },
+    signal: AbortSignal.timeout(5_000),
+  });
+  expect(response.status).toBe(status);
+  expect(response.headers.get("Cache-Control")).toBe("private, no-store");
+  expect(response.headers.get("WWW-Authenticate")).toBe(status === 401 ? "Bearer" : null);
+  expect(await response.json()).toEqual({
+    success: false,
+    error: {
+      code,
+      message: status === 401 ? "Invalid or missing Firebase ID token" : "Authentication service unavailable",
+    },
+  });
+});
+
 it("isolates languages and filters across 12 concurrent requests", async () => {
   const cases = [
     { query: "search=sunlit", language: "ar", id: sample.id, title: sample.title.ar },
